@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h2>Estos son los resultados de la busqueda</h2>
+{% for post in queryset %}
+
+<a href="{{ post.get_adsolute_url }}">{{ post.title }}</a><br>
+
+{% endfor %}
+
+{% endblock %}

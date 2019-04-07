@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+{% include "head.html" %}
+
+{% include 'header.html' %}
+
+<body class="mt-xl-5 pt-2 ">
+
+
+
+        {% if messages %}
+        <div>
+          <strong>Messages:</strong>
+              <ul>
+                {% for message in messages %}
+                <li>{{message}}</li>
+                {% endfor %}
+              </ul>
+        </div>
+    {% endif %}
+
+    {% block content %}
+    {% endblock content %}
+
+    {% include 'footer.html' %}
+    {% include 'scripts.html' %}
+
+</body>
+
+</html>
