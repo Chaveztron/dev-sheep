@@ -2,7 +2,31 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from .forms import UserUpdateForm, ProfileUpdateForm
+from .forms import UserUpdateForm, ProfileUpdateForm, ValidAuthor
+
+
+def validar_author(request):
+    if request.method == 'POST':
+
+        form = ValidAuthor(request.POST)
+
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            messages.success(request, f'Ahora eres un author!')
+            return redirect('profile')
+
+    else:
+        form = ValidAuthor(instance=request.user)
+
+    context = {
+        'form':form,
+    }
+
+    return render(request, 'users/validar.html', context)
+
+
 
 
 @login_required

@@ -44,7 +44,7 @@ def index(request):
 def blog(request):
     category_count = get_category_count()
     most_recent = Post.objects.order_by('-timestamp')[0:3]
-    post_list = Post.objects.all()
+    post_list = Post.objects.order_by('-timestamp')[0:]
     paginator = Paginator(post_list, 4)
     page_request_var = 'page'
     page = request.GET.get(page_request_var)
@@ -115,18 +115,21 @@ def post_update(request, id):
     post = get_object_or_404(Post, id=id)
     form = PostForm(request.POST or None, request.FILES or None, instance=post)
     author = get_author(request.user)
-    if request.method == "POST":
-        if form.is_valid():
-            form.instance.author = author
-            form.save()
-            return redirect(reverse("post-detail", kwargs={
-                'id': form.instance.id
-            }))
-    context = {
-        'title': title,
-        'form': form
-    }
-    return render(request, "post_create.html", context)
+    if post.author.user == request.user:
+        if request.method == "POST":
+            if form.is_valid():
+                form.instance.author = author
+                form.save()
+                return redirect(reverse("post-detail", kwargs={
+                    'id': form.instance.id
+                }))
+        context = {
+            'title': title,
+            'form': form
+        }
+        return render(request, "post_create.html", context)
+    else:
+        return post_create(request)
 
 
 def post_delete(request, id):

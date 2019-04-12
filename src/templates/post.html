@@ -26,8 +26,12 @@
                     {% endfor %}
                   </div>
                   <div>
+
+                 {% if post.author.user == request.user %}
                     <a href="{% url 'post-update' id=post.id %}">Update</a>
                     <a href="{% url 'post-delete' id=post.id %}">Delete</a>
+
+                    {% endif %}
 
                   </div>
                 </div>

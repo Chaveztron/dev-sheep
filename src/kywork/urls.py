@@ -20,7 +20,9 @@ urlpatterns = [
     path('post/<id>/update/', post_update, name='post-update'),
     path('post/<id>/delete/', post_delete, name='post-delete'),
     path('tinymce/', include('tinymce.urls')),
-    path('accounts/', include('allauth.urls'))
+    path('accounts/', include('allauth.urls')),
+
+    path('validar/', user_views.validar_author, name='valid')
 ]
 
 if settings.DEBUG:

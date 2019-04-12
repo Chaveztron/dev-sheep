@@ -447,9 +447,8 @@ div[class*="-btn"] {
 * ==========================================================
 */
 .navbar {
-  background: -webkit-linear-gradient(to right, #141e30, #243b55); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #141e30, #243b55); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  padding-top: 10px !important;
+  background: -webkit-linear-gradient(to right, #141e30, #437bae); /* Chrome 10-25, Safari 5.1-6 */
+ background: linear-gradient(to right, #43c6ac, #191654); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  padding-top: 10px !important;
   padding-bottom: 10px !important;
   z-index: 9998;
   border-bottom: 1px solid #ddd;

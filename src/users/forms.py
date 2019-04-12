@@ -15,3 +15,10 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Author
         fields = ['profile_picture']
+
+
+class ValidAuthor(forms.ModelForm):
+    class Meta:
+        model = Author
+        fields = []
+

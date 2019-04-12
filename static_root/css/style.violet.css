@@ -447,9 +447,10 @@ div[class*="-btn"] {
 * ==========================================================
 */
 .navbar {
-  background: #fff;
-  padding-top: 20px !important;
-  padding-bottom: 20px !important;
+  background: -webkit-linear-gradient(to right, #141e30, #243b55); /* Chrome 10-25, Safari 5.1-6 */
+  background-image: linear-gradient( 135deg, #EE9AE5 10%, #5961F9 100%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
   z-index: 9998;
   border-bottom: 1px solid #ddd;
 }
@@ -464,7 +465,7 @@ div[class*="-btn"] {
 }
 
 .navbar .search-btn {
-  color: #333;
+  color: #f7f7f7;
   font-size: 0.9em;
 }
 
@@ -475,7 +476,7 @@ div[class*="-btn"] {
 .navbar .navbar-toggler span {
   width: 20px;
   height: 2px;
-  background: #222;
+  background: #ffffff;
   margin-bottom: 4px;
   display: block;
 }
@@ -509,7 +510,7 @@ div[class*="-btn"] {
 }
 
 .navbar .langs a.active {
-  color: #333;
+  color: #fbffff;
 }
 
 .navbar .langs span {
@@ -589,18 +590,18 @@ div[class*="-btn"] {
 }
 
 .navbar .navbar-nav a.nav-link {
-  color: #333;
+  color: #ffffff;
   margin: 0 5px;
   font-weight: 400;
   font-size: 0.95em;
 }
 
 .navbar .navbar-nav a.nav-link:hover {
-  color: #9055A2;
+  color: #BBD2C5;
 }
 
 .navbar .navbar-nav a.nav-link.active {
-  color: #9055A2;
+  color: #BBD2C5;
   font-weight: bold;
 }
 
