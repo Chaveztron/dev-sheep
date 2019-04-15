@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'tinymce',
+    'phone_field',
 ]
 
 #ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"

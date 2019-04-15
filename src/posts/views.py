@@ -69,6 +69,7 @@ def post(request, id):
     category_count = get_category_count()
     most_recent = Post.objects.order_by('-timestamp')[0:3]
     post = get_object_or_404(Post, id=id)
+    authors = Author.objects.all()
 
     if request.user.is_authenticated:
         PostView.objects.get_or_create(user=request.user, post=post)
@@ -86,7 +87,8 @@ def post(request, id):
         'form': form,
         'post': post,
         'most_recent': most_recent,
-        'category_count': category_count
+        'category_count': category_count,
+        'authors':authors
     }
 
     return render(request, 'post.html', context)
@@ -134,5 +136,8 @@ def post_update(request, id):
 
 def post_delete(request, id):
     post = get_object_or_404(Post, id=id)
-    post.delete()
-    return redirect(reverse("post-list"))
+    if post.author.user == request.user:
+        post.delete()
+        return redirect(reverse("post-list"))
+    else:
+        return post_create(request)

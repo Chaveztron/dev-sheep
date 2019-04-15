@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import render, get_object_or_404, redirect, reverse
+from posts.models import Author, AuthorView
 from .forms import UserUpdateForm, ProfileUpdateForm, ValidAuthor
 
 
+@login_required
 def validar_author(request):
     if request.method == 'POST':
 
@@ -27,6 +28,17 @@ def validar_author(request):
     return render(request, 'users/validar.html', context)
 
 
+def author_detalles(request, id):
+    author = get_object_or_404(Author, id=id)
+
+    if request.user.is_authenticated:
+        AuthorView.objects.get_or_create(user=request.user, author=author)
+
+    context = {
+        'author': author,
+    }
+
+    return render(request, 'users/author_details.html', context)
 
 
 @login_required

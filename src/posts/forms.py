@@ -1,7 +1,7 @@
 from django import forms
 from tinymce import TinyMCE
-from .models import Post, Comment
-
+from .models import Post, Comment, Category
+from django.forms.widgets import CheckboxSelectMultiple
 
 class TinyMCEWidget(TinyMCE):
     def use_required_attribute(self, *args):
@@ -9,6 +9,7 @@ class TinyMCEWidget(TinyMCE):
 
 
 class PostForm(forms.ModelForm):
+    categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(),widget=forms.CheckboxSelectMultiple, required=True)
     content = forms.CharField(
         widget=TinyMCEWidget(
             attrs={'required': False, 'cols': 30, 'rows': 10}

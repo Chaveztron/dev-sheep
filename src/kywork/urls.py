@@ -22,7 +22,8 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('accounts/', include('allauth.urls')),
 
-    path('validar/', user_views.validar_author, name='valid')
+    path('validar/', user_views.validar_author, name='valid'),
+    path('author/<id>/', user_views.author_detalles, name='detalles_usuario')
 ]
 
 if settings.DEBUG:
