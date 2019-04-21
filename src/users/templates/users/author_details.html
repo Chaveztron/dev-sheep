@@ -18,7 +18,7 @@
 
 .cabeza {
   background: #eee;
-  background-image: url("https://image.noelshack.com/fichiers/2017/38/2/1505775648-annapurnafocus.jpg");
+  background-image: url("{{ author.portada.url }}");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -181,7 +181,12 @@ main {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
 }
-
+button{
+    position: absolute;
+  right: 30%;
+  top: 35px;
+  font-size: 11pt;
+}
 .follow:hover {
   box-shadow: 0 0 15px rgba(0,0,0,0.2), 0 0 15px rgba(0,0,0,0.2);
   background-color: #87fa66;
@@ -195,6 +200,14 @@ main {
 
   .follow {
     width: 50%;
+    margin-left: 25%;
+    display: block;
+    position: unset;
+    text-align: center;
+  }
+
+  button {
+      width: 50%;
     margin-left: 25%;
     display: block;
     position: unset;
@@ -249,7 +262,7 @@ main {
 
 
                 Idiomas que habla:
-                {% for lengua in user.author.idiomas.all %}
+                {% for lengua in author.idiomas.all %}
                    {{ lengua }}
                     {% endfor %}
 
@@ -262,25 +275,31 @@ main {
             <ul class="navegacion">
                 <li>Galeria de trabajos realizados</li>
             </ul>
+
+
+            {% if request.user == author.user %}
+            <a href="{% url 'profile' %}" class="follow">Ajustes</a>
+            {% else %}
             <span class="follow">Enviar mensaje</span>
+            {% endif %}
             <div class="row gallery">
                 <div class="col-md-4">
-                    <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774813-photo4.jpg"/>
+                    <img src="{{ author.imagen1.url }}"/>
                 </div>
                 <div class="col-md-4">
-                    <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774814-photo5.jpg"/>
+                    <img src="{{ author.imagen2.url }}"/>
                 </div>
                 <div class="col-md-4">
-                    <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774814-photo6.jpg"/>
+                    <img src="{{ author.imagen3.url }}"/>
                 </div>
                 <div class="col-md-4">
-                    <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774817-photo1.jpg"/>
+                    <img src="{{ author.imagen4.url }}"/>
                 </div>
                 <div class="col-md-4">
-                    <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774815-photo2.jpg"/>
+                    <img src="{{ author.imagen5.url }}"/>
                 </div>
                 <div class="col-md-4">
-                    <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774816-photo3.jpg"/>
+                    <img src="{{ author.imagen6.url }}"/>
                 </div>
             </div>
         </div>

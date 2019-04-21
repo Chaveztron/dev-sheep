@@ -36,10 +36,18 @@ class Idioma(models.Model):
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(default='default.jpg', upload_to='profile_pics',  validators=[FileExtensionValidator(allowed_extensions=['jpg'])])
-    cv = models.FileField(null=True, blank=True,  upload_to='cvs', validators=[FileExtensionValidator(['pdf'])])
-    telefono = PhoneField(blank=True, E164_only=True, help_text='Contact phone number')
+    profile_picture = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    cv = models.FileField(default='cvs/default.pdf',  upload_to='cvs', validators=[FileExtensionValidator(['pdf'])])
+    telefono = PhoneField(blank=True, E164_only=True, help_text='Numero telefónico')
     idiomas = models.ManyToManyField(Idioma)
+    portada = models.ImageField(default='default1.png', upload_to='portadas/')
+    imagen1 = models.ImageField(default='default2.png', upload_to='albun/')
+    imagen2 = models.ImageField(default='default2.png', upload_to='albun/')
+    imagen3 = models.ImageField(default='default2.png', upload_to='albun/')
+    imagen4 = models.ImageField(default='default2.png', upload_to='albun/')
+    imagen5 = models.ImageField(default='default2.png', upload_to='albun/')
+    imagen6 = models.ImageField(default='default2.png', upload_to='albun/')
+
 
     def __str__(self):
         return f'{self.user.username} Profile'

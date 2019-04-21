@@ -2,24 +2,97 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section animated jackInTheBox">
-      <div class="media">
-        <img class="rounded-circle account-img animated zoomIn" src="{{ user.author.profile_picture.url }}">
-        <div class="media-body">
-          <h2 class="account-heading">{{ user.username }}</h2>
-          <p class="text-secondary">{{ user.email }}</p>
-        </div>
-      </div>
+
         <form method="POST" enctype="multipart/form-data">
           {% csrf_token %}
-          <fieldset class="form-group">
-              <legend class="border-bottom mb-4">Profile Info</legend>
-              {{ u_form|crispy }}
-              {{ p_form|crispy }}
-          </fieldset>
-          <div class="form-group">
-              <button class="btn btn-outline-info" type="submit">Actuakizar mi informacion</button>
+            <br>
+
+          <fieldset class="form-group col-12 mr-1 mb-5 mt-5">
+             <h1>Ajustes</h1>
+  	            <hr>
+              <div class="row">
+                        <div class="col-md-3">
+                        <div class="text-center">
+                          <img src="{{ user.author.profile_picture.url }}" class="avatar rounded-circle" style="width: 50%; height: 50%" alt="avatar">
+                          <h6>suba una foto diferente...</h6>
+
+                          {{ p_form.profile_picture }}
+                        </div>
+                      </div>
+                   <div class="col-md-9 personal-info">
+                                 <div class="form-group">
+                                    <label class="col-lg-3 control-label">Identificador de usuario</label>
+                                    <div class="col-lg-8">
+                                      {{ u_form.username }}
+                                    </div>
+                                  </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Nombre</label>
+                                    <div class="col-lg-8">
+                                      {{ u_form.first_name }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Apellidos</label>
+                                    <div class="col-lg-8">
+                                      {{ u_form.last_name }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Email</label>
+                                    <div class="col-lg-8">
+                                      {{ u_form.email }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Numero Telefónico</label>
+                                    <div class="col-lg-8">
+                                      {{ p_form.telefono }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Idiomas que domina:</label>
+                                    <div class="col-lg-8">
+                                      {{ p_form.idiomas }}
+                                    </div>
+                                </div>
+
+                  </div>
+
+                  <table class="table table-bordered col-lg-3 table-responsive-sm">
+                      <thead>
+                        <tr>
+                          <td colspan="3" ">La portada del perfil <br>{{ p_form.portada }}</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{ p_form.imagen1 }}</td>
+                          <td>{{ p_form.imagen2 }}</td>
+                          <td>{{ p_form.imagen3 }}</td>
+                        </tr>
+                        <tr>
+                           <td>{{ p_form.imagen4 }}</td>
+                          <td>{{ p_form.imagen5 }}</td>
+                          <td>{{ p_form.imagen6 }}</td>
+
+                        </tr>
+                      <tr>
+                         <td colspan="3">Curriculum <br>{{ p_form.cv }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+
+
+              </div>
+            <div class="form-group">
+              <button class="btn btn-outline-info" type="submit">Actualizar mi informacion</button>
+                <a href="{{ request.user.author.get_absolute_url }}" class="btn btn-danger">Cancelar</a>
           </div>
+
+          </fieldset>
+
       </form>
 
     </div>

@@ -43,7 +43,7 @@
               {% if user.is_authenticated %}
               <li class="nav-item"><a href="{% url 'account_email' %}" class="nav-link ">Cambiar E-mail</a></li>
               <li class="nav-item"><a href="{% url 'account_logout' %}" class="nav-link ">Cerrar Sesión</a></li>
-               <li class="nav-item"><a href="{% url 'profile' %}" class="nav-link ">Profile</a></li>
+               <li class="nav-item"><a href="{{ request.user.author.get_absolute_url }}" class="nav-link ">Profile</a></li>
               {% else %}
               <li class="nav-item"><a href="{% url 'account_login' %}" class="nav-link ">Iniciar Sesión</a></li>
               <li class="nav-item"><a href="{% url 'account_signup' %}" class="nav-link ">Regístrate</a></li>
