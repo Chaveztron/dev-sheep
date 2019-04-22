@@ -2,27 +2,31 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from posts.models import Author, AuthorView
-from .forms import UserUpdateForm, ProfileUpdateForm, ValidAuthor
+from .forms import UserUpdateForm, ProfileUpdateForm, ValidAuthor, ValidUser
 
 
 @login_required
 def validar_author(request):
     if request.method == 'POST':
-
+        form_user = ValidUser(request.POST, instance=request.user)
+        print(form_user)
         form = ValidAuthor(request.POST)
-
-        if form.is_valid():
+        if form.is_valid() and form_user.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
+            form.save()
+            form_user.save()
             messages.success(request, f'Ahora eres un author!')
             return redirect('profile')
 
     else:
+        form_user = UserUpdateForm(instance=request.user)
         form = ValidAuthor(instance=request.user)
 
     context = {
         'form':form,
+        'form_user': form_user,
     }
 
     return render(request, 'users/validar.html', context)

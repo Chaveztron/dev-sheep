@@ -32,7 +32,17 @@ class ProfileUpdateForm(forms.ModelForm):
 
 
 class ValidAuthor(forms.ModelForm):
+    idiomas = forms.ModelMultipleChoiceField(queryset=Idioma.objects.all(), widget=forms.CheckboxSelectMultiple,
+                                             required=True, label='Idiomas que domina')
     class Meta:
         model = Author
-        fields = []
+        fields = ['telefono', 'idiomas']
 
+class ValidUser(forms.ModelForm):
+    class Meta:
+        model = User
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Apellidos'}),
+        }
+        fields = ['first_name', 'last_name']
