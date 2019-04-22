@@ -30,20 +30,39 @@
           <!-- Navbar Menu -->
           <div id="navbarcollapse" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item"><a href="/" class="nav-link ">Home</a>
+              <li class="nav-item"><a href="/" class="nav-link ">Inicio</a>
               </li>
-              <li class="nav-item"><a href="/blog" class="nav-link active ">Blog</a>
-              </li>
-              <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
-              </li>
+              <li class="nav-item"><a href="/blog" class="nav-link active ">Ofertas!</a>
               {% if user.is_authenticated %}
-              <li class="nav-item"><a href="{% url 'post-create' %}" class="nav-link ">Create</a>
+
+              {% if request.user.author %}
+              <li class="nav-item"><a href="{% url 'post-create' %}" class="nav-link ">Crear</a>
               </li>
               {% endif %}
+
+              {% endif %}
               {% if user.is_authenticated %}
-              <li class="nav-item"><a href="{% url 'account_email' %}" class="nav-link ">Cambiar E-mail</a></li>
+
+              {% if request.user.author %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src="{{ user.author.profile_picture.url }}" class="rounded-circle" style="width: 30px; height: 30px" />
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ request.user.author.get_absolute_url }}">{{ request.user }}</a>
+                  <a class="dropdown-item" href="{% url 'profile' %}">Ajustes</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'account_logout' %}">Cerrar Sesión</a>
+                </div>
+              </li>
+              {% else %}
+                <li class="nav-item"><a href="{% url 'valid' %}" class="nav-link ">Configurar mi cuenta</a></li>
               <li class="nav-item"><a href="{% url 'account_logout' %}" class="nav-link ">Cerrar Sesión</a></li>
-               <li class="nav-item"><a href="{{ request.user.author.get_absolute_url }}" class="nav-link ">Profile</a></li>
+              {% endif %}
+
+
+
+
               {% else %}
               <li class="nav-item"><a href="{% url 'account_login' %}" class="nav-link ">Iniciar Sesión</a></li>
               <li class="nav-item"><a href="{% url 'account_signup' %}" class="nav-link ">Regístrate</a></li>
