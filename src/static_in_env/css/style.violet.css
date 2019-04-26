@@ -447,16 +447,16 @@ div[class*="-btn"] {
 * ==========================================================
 */
 .navbar {
-  background: -webkit-linear-gradient(to right, #43c6ac, #191654);
-  background: -moz-linear-gradient(to right, #43c6ac, #191654);
-  background: -o-linear-gradient(to right, #43c6ac, #191654);
-  background: linear-gradient(to right, #43c6ac, #191654);
+  background: -webkit-linear-gradient( 135deg, #EE9AE5 10%, #5961F9 100%);
+  background: -moz-linear-gradient( 135deg, #EE9AE5 10%, #5961F9 100%);
+  background: -o-linear-gradient( 135deg, #EE9AE5 10%, #5961F9 100%);
+  background: linear-gradient( 135deg, #EE9AE5 10%, #5961F9 100%);
     border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   padding-top: 10px !important;
   padding-bottom: 10px !important;
   z-index: 9998;
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid #8500f9;
 }
 
 
@@ -2590,3 +2590,4 @@ a.text-light:focus, a.text-light:hover {
 a.text-dark:focus, a.text-dark:hover {
   color: #1d2124 !important;
 }
+

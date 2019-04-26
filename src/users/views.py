@@ -34,12 +34,14 @@ def validar_author(request):
 
 def author_detalles(request, id):
     author = get_object_or_404(Author, id=id)
-
+    authorV = Author.objects.get(id=id)
+    print(authorV.author_view_count)
     if request.user.is_authenticated:
         AuthorView.objects.get_or_create(user=request.user, author=author)
 
     context = {
         'author': author,
+        'authorV': authorV,
     }
 
     return render(request, 'users/author_details.html', context)
@@ -55,7 +57,7 @@ def profile(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request, f'Your account has been updated!')
+            messages.success(request, f'¡Tu cuenta ha sido actualizada!')
             return redirect('profile')
 
     else:

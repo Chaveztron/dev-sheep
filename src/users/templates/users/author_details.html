@@ -222,12 +222,12 @@ main {
                 <div class="activo"></div>
             </div>
             <h4 class="name">{{ author.user.first_name }} {{ author.user.last_name }}</h4>
-            <p class="info">{{ author.telefono }}</p>
-            <p class="info">{{ author.user.email }}</p>
+            <a href="tel:{{ author.telefono }}"><p class="info">{{ author.telefono }}</p></a>
+            <a href="mailto:{{ author.user.email }}"><p class="info">{{ author.user.email }}</p></a>
             <div class="stats row">
                 <div class="stat col-xs-4" style="padding-right: 50px;">
-                    <p class="number-stat">3,619</p>
-                    <p class="desc-stat">Followers</p>
+                    <p class="number-stat">{{ authorV.author_view_count }}</p>
+                    <p class="desc-stat">Visitas</p>
                 </div>
                 <div class="stat col-xs-4">
                     <p class="number-stat">42</p>

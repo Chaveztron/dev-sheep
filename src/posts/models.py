@@ -64,7 +64,7 @@ class Author(models.Model):
 
     @property
     def author_view_count(self):
-        return AuthorView.objects.filter(post=self).count()
+        return AuthorView.objects.filter(author=self).count()
 
     def get_absolute_url(self):
         return reverse('detalles_usuario', kwargs={

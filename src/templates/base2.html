@@ -5,10 +5,8 @@
 
 {% include 'header.html' %}
 
-<body class="mt-xl-5 pt-2 ">
 
-
-
+    {% block content %}
         {% if messages %}
             {% for message in messages %}
              <div class="alert alert-success fixed-top" style="z-index: 9996; margin-top: 74px;
@@ -24,14 +22,9 @@
                 });
             }, 4000);
         </script>
-
-
         {% endif %}
-
-    {% block content %}
     {% endblock content %}
 
-    {% include 'footer.html' %}
     {% include 'scripts.html' %}
 
 </body>

@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.db.models import Count, Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect, reverse
@@ -102,6 +103,7 @@ def post_create(request):
         if form.is_valid():
             form.instance.author = author
             form.save()
+            messages.success(request, f'¡Tu oferta ha sido publicada!')
             return redirect(reverse("post-detail", kwargs={
                 'id': form.instance.id
             }))
@@ -122,6 +124,7 @@ def post_update(request, id):
             if form.is_valid():
                 form.instance.author = author
                 form.save()
+                messages.success(request, f'¡Tu oferta ha sido actualizada!')
                 return redirect(reverse("post-detail", kwargs={
                     'id': form.instance.id
                 }))
@@ -138,6 +141,7 @@ def post_delete(request, id):
     post = get_object_or_404(Post, id=id)
     if post.author.user == request.user:
         post.delete()
+        messages.success(request, f'¡Tu oferta ha sido borrada!')
         return redirect(reverse("post-list"))
     else:
         return post_create(request)
