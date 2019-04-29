@@ -14,6 +14,10 @@ def get_author(user):
 
 
 def search(request):
+    #esto es lo de la pagina principal
+    category_count = get_category_count()
+    most_recent = Post.objects.order_by('-timestamp')[0:3]
+    #Query SET
     queryset = Post.objects.all()
     query = request.GET.get('q')
     if query:
@@ -21,8 +25,28 @@ def search(request):
             Q(title__icontains=query) |
             Q(overview__icontains=query)
         ).distinct()
+
+    post_list = queryset
+    #QUERY de busquedas
+    paginator = Paginator(post_list, 4)
+    page_request_var = 'page'
+    page = request.GET.get(page_request_var)
+    #asta aqui termina
+    #paginacion
+    try:
+        paginated_queryset = paginator.page(page)
+    except PageNotAnInteger:
+        paginated_queryset = paginator.page(1)
+    except EmptyPage:
+        paginated_queryset = paginator.page(paginator.num_pages)
+    #paginacion
     context = {
-        'queryset': queryset
+        #otros contextos
+        'queryset': paginated_queryset,
+        'most_recent': most_recent,
+        'page_request_var': page_request_var,
+        'category_count': category_count
+        #otros
     }
     return render(request, 'search_results.html', context)
 

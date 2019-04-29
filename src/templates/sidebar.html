@@ -2,11 +2,11 @@
     <!-- Widget [Search Bar Widget]-->
     <div class="widget search">
     <header>
-        <h3 class="h6">Search the blog</h3>
+        <h3 class="h6">Buscar oferta</h3>
     </header>
     <form action="{% url 'search' %}" class="search-form">
         <div class="form-group">
-        <input type="text" name="q" placeholder="What are you looking for?">
+        <input type="text" name="q" placeholder="Redacte una palabra clave">
         <button type="submit" class="submit"><i class="icon-search"></i></button>
         </div>
     </form>
@@ -14,7 +14,7 @@
     <!-- Widget [Latest Posts Widget]        -->
     <div class="widget latest-posts">
     <header>
-        <h3 class="h6">Latest Posts</h3>
+        <h3 class="h6">Ultimas ofertas</h3>
     </header>
     <div class="blog-posts">
         {% for post in most_recent %}
@@ -34,7 +34,7 @@
     <!-- Widget [Categories Widget]-->
     <div class="widget categories">
     <header>
-        <h3 class="h6">Categories</h3>
+        <h3 class="h6">Categorías</h3>
     </header>
     {% for cat in category_count %}
     <div class="item d-flex justify-content-between">
