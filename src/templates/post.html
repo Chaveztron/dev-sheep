@@ -28,8 +28,8 @@
                   <div>
 
                  {% if post.author.user == request.user %}
-                    <a href="{% url 'post-update' id=post.id %}">Update</a>
-                    <a href="{% url 'post-delete' id=post.id %}">Delete</a>
+                    <a class="btn btn-primary" href="{% url 'post-update' id=post.id %}">Actualizar informacion</a>
+                    <a class="btn btn-danger" href="{% url 'post-delete' id=post.id %}">Eliminar oferta</a>
 
                     {% endif %}
 
@@ -40,7 +40,7 @@
                     <div class="avatar"><img src="{{ post.author.profile_picture.url }}" alt="..." class="img-fluid"></div>
                     <div class="title"><span>{{ post.author.user.username }}</span></div></a>
                   <div class="d-flex align-items-center flex-wrap">       
-                    <div class="date"><i class="icon-clock"></i> {{ post.timestamp|timesince }} ago</div>
+                    <div class="date"><i class="icon-clock"></i>Hace {{ post.timestamp|timesince }}</div>
                     <div class="views"><i class="icon-eye"></i> {{ post.view_count }}</div>
                     <div class="comments meta-last"><i class="icon-comment"></i>{{ post.peticiones_count }}</div>
                   </div>
@@ -81,7 +81,7 @@
                         {% else %}
                         <div class="image"><img src="{% static 'img/user.svg' %}" alt="..." class="img-fluid rounded-circle"></div>
                         {% endif %}
-                        <div class="title"><strong><a href="{{ comment.user.author.get_absolute_url }}">{{ comment.user.username }}</a></strong><span class="date">{{ comment.timestamp|timesince }} ago</span></div>
+                        <div class="title"><strong><a href="{{ comment.user.author.get_absolute_url }}">{{ comment.user.username }}</a></strong><span class="date">Hace {{ comment.timestamp|timesince }}</span></div>
                       </div>
                     </div>
                     <div class="comment-body">

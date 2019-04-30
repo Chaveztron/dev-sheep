@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from posts.models import Author, AuthorView
+from posts.models import Author, AuthorView, Post
 from .forms import UserUpdateForm, ProfileUpdateForm, ValidAuthor, ValidUser
 
 
@@ -35,13 +35,18 @@ def validar_author(request):
 def author_detalles(request, id):
     author = get_object_or_404(Author, id=id)
     authorV = Author.objects.get(id=id)
+    publicaciones = Post.objects.filter(author = author)
     print(authorV.author_view_count)
+    numero_publicaiones = publicaciones.count()
+
     if request.user.is_authenticated:
         AuthorView.objects.get_or_create(user=request.user, author=author)
 
     context = {
         'author': author,
         'authorV': authorV,
+        'publicaciones' : publicaciones,
+        'numero_publicaciones' : numero_publicaiones,
     }
 
     return render(request, 'users/author_details.html', context)
