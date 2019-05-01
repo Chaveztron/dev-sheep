@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 from posts.views import \
     (index, blog, post, search, \
-    post_update, post_delete, post_create)
+    post_update, post_delete, post_create, search_by_type)
 from users import views as user_views
 
 
@@ -15,6 +15,7 @@ urlpatterns = [
     path('', index),
     path('blog/', blog, name='post-list'),
     path('search/', search, name='search'),
+    path('search-type/<id>', search_by_type, name='search-type'),
     path('create/', post_create, name='post-create'),
     path('post/<id>/', post, name='post-detail'),
     path('post/<id>/update/', post_update, name='post-update'),

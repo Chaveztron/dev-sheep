@@ -38,8 +38,17 @@
     </header>
     {% for cat in category_count %}
     <div class="item d-flex justify-content-between">
-        <a href="#">{{ cat.categories__title }}</a><span>{{ cat.categories__title__count }}</span>
+        <a href="/search-type/{{ cat.categories__id }}" >{{ cat.categories__title }}</a><span>{{ cat.categories__title__count }}</span>
     </div>
     {% endfor %}
     </div>
+
+            <select id="category" class="form-control" name="category">
+              <option selected>Choose...</option>
+              {% for cat in category_count %}
+              <option value="{{ cat }}">{{ cat.categories__title }}</option>
+              {% endfor %}
+            </select>
+
+
 </aside>

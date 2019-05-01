@@ -8,7 +8,7 @@
     <section style="background: url({% static 'img/hero.jpg' %}); background-size: cover; background-position: center center" class="hero">
       <div class="container">
         <div class="row">
-          <div class="col-lg-7">
+          <div class="col-lg-7" data-aos="fade-down" data-aos-duration="1000">
             <h1>IMPULSAMOS Y FORTALECEMOS TU TALENTO</h1>
             <a href="#" class="hero-link">
             EL TRABAJO IDEAL PARA LA PERSONA IDEAL
@@ -18,7 +18,7 @@
       </div>
     </section>
     <!-- Intro Section-->
-    <section class="intro">
+    <section class="intro" class="newsletter no-padding-top" data-aos="fade-up" data-aos-duration="1000">
       <div class="container">
         <div class="row">
           <div class="col-lg-8">
@@ -39,9 +39,9 @@
         {% for obj in object_list %}
         <div class="row d-flex align-items-stretch">
            {% if not forloop.first and not forloop.last %}
-          <div class="image col-lg-5"><img src="{{ obj.thumbnail.url }}" alt="..."></div>
+          <div class="image col-lg-5" data-aos="fade-right"><img src="{{ obj.thumbnail.url }}" alt="..."></div>
           {% endif %}
-          <div class="text col-lg-7">
+          <div class="text col-lg-7" data-aos="fade-up" data-aos-duration="1000">
             <div class="text-inner d-flex align-items-center">
               <div class="content">
                 <header class="post-header">
@@ -57,21 +57,21 @@
                 <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
                     <div class="avatar"><img src="{{ obj.author.profile_picture.url }}" alt="..." class="img-fluid"></div>
                     <div class="title"><span>{{ obj.author }}</span></div></a>
-                  <div class="date"><i class="icon-clock"></i>{{ obj.timestamp|timesince }} ago</div>
+                  <div class="date"><i class="icon-clock"></i>Hace {{ obj.timestamp|timesince }}</div>
                   <div class="comments"><i class="icon-comment"></i>{{ obj.peticiones_count }}</div>
                 </footer>
               </div>
             </div>
           </div>
           {% if forloop.first or forloop.last %}
-          <div class="image col-lg-5"><img src="{{ obj.thumbnail.url }}" alt="..."></div>
+          <div class="image col-lg-5" data-aos="fade-left"><img src="{{ obj.thumbnail.url }}" alt="..."></div>
           {% endif %}
         </div>
         {% endfor %}
       </div>
     </section>
     <!-- Divider Section-->
-    <section style="background: url({% static 'img/divider-bg.png' %}); background-size: cover; background-position: center bottom" class="divider">
+    <section style="background: url({% static 'img/divider-bg.png' %}); background-size: cover; background-position: center bottom" class="divider" data-aos="fade-up" data-aos-duration="1000">
       <div class="container">
         <div class="row">
           <div class="col-md-7">
@@ -98,7 +98,7 @@
         </header>
         <div class="row">
           {% for obj in latest %}
-          <div class="post col-md-4">
+          <div class="post col-md-4" data-aos="zoom-in-left">
             <div class="post-thumbnail"><a href="#"><img src="{{ obj.thumbnail.url }}" alt="..." class="img-fluid"></a></div>
             <div class="post-details">
               <div class="post-meta d-flex justify-content-between">
@@ -119,7 +119,7 @@
       </div>
     </section>
     <!-- Newsletter Section-->
-    <section class="newsletter no-padding-top">
+    <section class="newsletter no-padding-top" data-aos="fade-up" data-aos-duration="3000">
       <div class="container">
         <div class="row">
           <div class="col-md-6">

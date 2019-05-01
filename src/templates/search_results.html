@@ -11,7 +11,7 @@
                 <h1 class="h1"><small class="text-muted">Estos son los resultados de busqueda</small></h1>
               <!-- post -->
               {% for post in queryset %}
-              <div class="post col-xl-6">
+              <div class="post col-xl-6" data-aos="fade-up">
                 <div class="post-thumbnail"><a href="{{ post.get_absolute_url }}"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></a></div>
                 <div class="post-details">
                   <div class="post-meta d-flex justify-content-between">

@@ -28,7 +28,36 @@ def search(request):
 
     post_list = queryset
     #QUERY de busquedas
-    paginator = Paginator(post_list, 4)
+    paginator = Paginator(post_list, 6)
+    page_request_var = 'page'
+    page = request.GET.get(page_request_var)
+    #asta aqui termina
+    #paginacion
+    try:
+        paginated_queryset = paginator.page(page)
+    except PageNotAnInteger:
+        paginated_queryset = paginator.page(1)
+    except EmptyPage:
+        paginated_queryset = paginator.page(paginator.num_pages)
+    #paginacion
+    context = {
+        #otros contextos
+        'queryset': paginated_queryset,
+        'most_recent': most_recent,
+        'page_request_var': page_request_var,
+        'category_count': category_count
+        #otros
+    }
+    return render(request, 'search_results.html', context)
+
+##########################################
+
+def search_by_type(request, id):
+    #esto es lo de la pagina principal
+    category_count = get_category_count()
+    most_recent = Post.objects.order_by('-timestamp')[0:3]
+    post_list = Post.objects.filter(categories=id)[0:]
+    paginator = Paginator(post_list, 6)
     page_request_var = 'page'
     page = request.GET.get(page_request_var)
     #asta aqui termina
@@ -51,8 +80,11 @@ def search(request):
     return render(request, 'search_results.html', context)
 
 
+#############################################
+
+
 def get_category_count():
-    queryset = Post.objects.values('categories__title').annotate(Count('categories__title'))
+    queryset = Post.objects.values('categories__title', 'categories__id').annotate(Count('categories__title'))
     return queryset
 
 
@@ -70,7 +102,7 @@ def blog(request):
     category_count = get_category_count()
     most_recent = Post.objects.order_by('-timestamp')[0:3]
     post_list = Post.objects.order_by('-timestamp')[0:]
-    paginator = Paginator(post_list, 4)
+    paginator = Paginator(post_list, 6)
     page_request_var = 'page'
     page = request.GET.get(page_request_var)
     try:

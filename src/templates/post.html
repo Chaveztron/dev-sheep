@@ -28,10 +28,22 @@
                   <div>
 
                  {% if post.author.user == request.user %}
-                    <a class="btn btn-primary" href="{% url 'post-update' id=post.id %}">Actualizar informacion</a>
-                    <a class="btn btn-danger" href="{% url 'post-delete' id=post.id %}">Eliminar oferta</a>
+                    <a class="btn btn-primary btn-sm" href="{% url 'post-update' id=post.id %}">Actualizar informacion</a>
+                    <a class="btn btn-danger btn-sm" style="color: white;" onclick="myFunction()">Eliminar oferta</a>
 
                     {% endif %}
+
+                      <script>
+                    function myFunction() {
+                            var r = confirm("Desea continuar?");
+                            if (r == true) {
+                              window.location.href = "{% url 'post-delete' id=post.id %}";
+                            } else {
+
+                            }
+                          }
+                      </script>
+
 
                   </div>
                 </div>
@@ -53,23 +65,53 @@
                   <a href="{{ post.previous_post.get_absolute_url }}" class="prev-post text-left d-flex align-items-center">
                     <div class="icon prev"><i class="fa fa-angle-left"></i></div>
 
-                    <div class="text"><strong class="text-primary">Previous Post </strong>
+                    <div class="text"><strong class="text-primary">Oferta anterior </strong>
                       <h6>{{ post.previous_post.title }}</h6>
                     </div>
                   </a>
                   {% endif %}
                   {% if post.next_post %}
                   <a href="{{ post.next_post.get_absolute_url }}" class="next-post text-right d-flex align-items-center justify-content-end">
-                    <div class="text"><strong class="text-primary">Next Post </strong>
+                    <div class="text"><strong class="text-primary">Oferta siguiente</strong>
                       <h6>{{ post.next_post.title }}</h6>
                     </div>
                     <div class="icon next"><i class="fa fa-angle-right">   </i></div>
                   </a>
                   {% endif %}
                 </div>
+
+                {% if request.user.is_authenticated %}
+                {% if request.user.author %}
+                <div class="add-comment">
+                  <header>
+                    <h3 class="h6">Deja algún mensaje para esta oferta</h3>
+                  </header>
+                  <form method="POST" action="." class="commenting-form">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="form-group col-md-6">
+                      <tr><th><label for="usercomment">Contenido de la petición:</label></th><td><textarea name="content" cols="40" rows="4" class="form-control" placeholder="Escribe tu peticion" id="usercomment" required>
+</textarea></td></tr>
+                      <div class="form-group col-md-12">
+                      </div>
+                      <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-secondary">Enviar petición</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                {% else %}
+                    <a href="{% url 'valid' %}" class="btn btn-primary">Configurar mi cuenta</a>
+                {% endif %}
+                {% else %}
+                    <a href="{% url 'account_login' %}" class="btn btn-primary">Inicia Sesion para comentar</a>
+                {% endif %}
+
+
+
                 <div class="post-comments">
                   <header>
-                    <h3 class="h6">Post Comments<span class="no-of-comments">({{ post.comments.count }})</span></h3>
+                    <h3 class="h6">Peticiones de trabajo<span class="no-of-comments">({{ post.comments.count }})</span></h3>
                   </header>
                   {% for comment in post.get_comments %}
                   <div class="comment">
@@ -77,7 +119,6 @@
                       <div class="user d-flex align-items-center">
                         {% if comment.user.author %}
                         <div class="image"><img src="{{ comment.user.author.profile_picture.url }}" alt="..." class="img-fluid rounded-circle"></div>
-
                         {% else %}
                         <div class="image"><img src="{% static 'img/user.svg' %}" alt="..." class="img-fluid rounded-circle"></div>
                         {% endif %}
@@ -90,34 +131,7 @@
                   </div>
                   {% endfor %}
                 </div>
-                {% if request.user.is_authenticated %}
 
-                {% if request.user.author %}
-              <div class="add-comment">
-                  <header>
-                    <h3 class="h6">Leave a reply</h3>
-                  </header>
-                  <form method="POST" action="." class="commenting-form">
-                    {% csrf_token %}
-                    <div class="row">
-
-                      <div class="form-group col-md-6">
-                      {{ form }}
-                      <div class="form-group col-md-12">
-                      </div>
-                      <div class="form-group col-md-12">
-                        <button type="submit" class="btn btn-secondary">Submit Comment</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                {% else %}
-                 <a href="{% url 'valid' %}" class="btn btn-primary">Configurar mi cuenta</a>
-              {% endif %}
-
-                {% else %}
-                    <a href="{% url 'account_login' %}" class="btn btn-primary">Inicia Sesion para comentar</a>
-                {% endif %}
               </div>
             </div>
           </div>

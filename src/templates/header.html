@@ -48,7 +48,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <img src="{{ user.author.profile_picture.url }}" class="rounded-circle" style="width: 30px; height: 30px" />
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu animated fadeIn faster" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="{{ request.user.author.get_absolute_url }}">{{ request.user }}</a>
                   <a class="dropdown-item" href="{% url 'profile' %}">Ajustes</a>
                   <div class="dropdown-divider"></div>

@@ -218,7 +218,7 @@ main {
     <div class="row">
         <div class="left col-lg-4">
             <div class="photo-left">
-                <img class="photo" src="{{ author.profile_picture.url }}"/>
+                <img class="photo animated zoomIn" src="{{ author.profile_picture.url }}"/>
                 <div class="activo"></div>
             </div>
             <h4 class="name">{{ author.user.first_name }} {{ author.user.last_name }}</h4>
@@ -288,11 +288,32 @@ main {
 
      <iframe src="{{ author.cv.url }}" id = "pdf" style="width:100%; height:50rem;" frameborder="0"></iframe>
 
+    <div class="row">
     {% for post in publicaciones %}
+ <div class="col-sm-3">
+    <div class="card" style="width: 18rem;">
+        <a href="{{ post.get_absolute_url }}"><img class="card-img-top" src="{{ post.thumbnail.url }}" alt="Card image cap"></a>
+  <div class="card-body">
+    <h5 class="card-title">{{ post.title }}</h5>
+    <p class="card-text">{{ post.overview }}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+         <div class="views"><i class="icon-eye"></i> Visitas: {{ post.view_count }}</div>
+                <div class="comments"><i class="icon-comment"></i> Peticiones: {{ post.peticiones_count }}</div>
+    </li>
+    <li class="list-group-item">{{ post.timestamp }}</li>
+  </ul>
+        {% if post.author.user == request.user %}
+  <div class="card-body">
+      <a class="btn btn-info btn-sm" style="margin-bottom: 2px;" href="{{ post.get_absolute_url }}">Ver oferta</a>
+    <a class="btn btn-primary btn-sm" href="{% url 'post-update' id=post.id %}">Actualizar informacion</a>
+  </div>
+        {% endif %}
+</div>
 
-    <h1>{{ post.title }}</h1>
-
+</div>
     {% endfor %}
 
-
+</div>
 {% endblock content %}
