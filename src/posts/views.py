@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from .forms import CommentForm, PostForm
 from .models import Post, Author, PostView
 
+from chat.models import ChatRoom
 
 def get_author(user):
     qs = Author.objects.filter(user=user)
@@ -99,6 +100,9 @@ def index(request):
 
 
 def blog(request):
+    chat_rooms_sender = ChatRoom.objects.all().filter(sender=request.user)
+    chat_rooms_receiver = ChatRoom.objects.all().filter(receiver=request.user)
+
     category_count = get_category_count()
     most_recent = Post.objects.order_by('-timestamp')[0:3]
     post_list = Post.objects.order_by('-timestamp')[0:]
@@ -116,8 +120,10 @@ def blog(request):
         'queryset': paginated_queryset,
         'most_recent': most_recent,
         'page_request_var': page_request_var,
-        'category_count': category_count
+        'category_count': category_count,
 
+        "chat_rooms_sender": chat_rooms_sender,
+        "chat_rooms_receiver": chat_rooms_receiver,
     }
     return render(request, 'blog.html', context)
 

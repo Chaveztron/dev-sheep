@@ -9,6 +9,195 @@
         <!-- Latest Posts -->
         <main class="posts-listing col-lg-8">
           <div class="container">
+
+
+
+<title>$.scrollLeft()</title>
+        <style type="text/css">
+
+            * {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                text-decoration: none;
+            }
+
+            .carousel {
+                width: 100%;
+                min-height: 120px;
+                position: relative;
+                margin: 1em 0;
+            }
+
+            .wrapper {
+                width: 725px;
+                height: 60px;
+                overflow: auto;
+                position: absolute;
+                top: 0;
+                min-height: 130px;
+                margin: 0 auto;
+                margin-top: 0px;
+            }
+
+            .wrapper ul {
+                width: auto;
+                position: absolute;
+                top: 0;
+                display: flex;
+            }
+
+            .wrapper ul li {
+                float: left;
+                width: 100px;
+                height: 100px;
+                margin-right: 5px;
+                box-sizing: border-box;
+                border: 1px solid #ddd;
+                border-radius: 50%;
+                text-align: center;
+                font-size: 1em;
+            }
+            .wrapper ul li a{
+                margin-top: 5.9rem;
+            }
+
+            .previous,
+            .next {
+            	position: absolute;
+            	width: 32px;
+            	height: 32px;
+            	background: #000;
+            	color: #fff;
+            	text-align: center;
+            	line-height: 32px;
+            	top: 50%;
+            	margin-top: -16px;
+            	z-index: 900;
+            }
+
+            .previous {
+            	left: 0;
+            	border-radius: 50% 0 0 50%;
+            }
+
+            .next {
+            	right: 0;
+            	border-radius: 0 50% 50% 0;
+            }
+
+            main {
+                max-width: 960px;
+                margin: auto;
+            }
+
+          @media only screen and (max-width: 1024px) {
+                  .wrapper {
+                    margin-top: 3rem;
+                    width: 98%;
+                    position: absolute;
+                  }
+
+            .wrapper ul li {
+              float: left;
+              width: 70px;
+              height: 70px;
+              margin-right: 5px;
+              box-sizing: border-box;
+              border: 1px solid #ddd;
+              border-radius: 50%;
+              text-align: center;
+              line-height: 150px;
+              font-size: 15px;
+            }
+               .wrapper ul li a{
+                margin-top: 0rem;
+            }
+
+          }
+
+        </style>
+
+
+            <div id="first" class="carousel">
+                <div class="wrapper">
+
+                    <ul>
+                     {% for chat in chat_rooms_sender %}
+                     <a href="/chat/{{ chat.id }}/"> <li style="background: url({{ chat.receiver.author.profile_picture.url }}); background-repeat: no-repeat; background-size: 100%"><a href="/chat/{{ chat.id }}/">{{ chat.receiver }}</a></li></a>
+                      {% endfor %}
+                      {% for chat in chat_rooms_receiver %}
+                      <a href="/chat/{{ chat.id }}/"><li style="background: url({{ chat.sender.author.profile_picture.url }}); background-repeat: no-repeat; background-size: 100%"><a href="/chat/{{ chat.id }}/">{{ chat.sender }}</a></li></a>
+                      {% endfor %}
+                    </ul>
+
+                </div>
+                <a href="#" class="previous">&lt;</a>
+                <a href="#" class="next">&gt;</a>
+            </div>
+
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript">
+
+            (function ($) {
+
+                const debug = $('#debug')
+
+                function carousel() {
+                    // define the selectors that pertain to our slider
+                    let slider   = '.wrapper'
+                    let slide    = '.wrapper ul > li'
+                    let previous = '.previous'
+                    let next     = '.next'
+                    let carousel = '.carousel'
+
+                    // $(carousel).each( function () {
+                    //     var $elem = $( this )
+
+                        // $elem.find( '> div' ).css( 'overflow', 'hidden' )
+
+                        var showSlide = function ( direction ) {
+
+                            //  compute the outer width of each thumb or item
+                            let singleWidth = $(slide).eq(0).outerWidth()
+
+                            // if direction is one (add step) else (reduce step)
+                            let left = ( direction == 1 ) ? '+=' + singleWidth : '-=' + singleWidth
+
+                            // stop it after each step has been triggered
+                            $(slider).stop(true, true).animate({ scrollLeft: left }, 500)
+                        }
+
+                        // previous click event
+                        $(previous).on('click', function( e ) {
+                            e.preventDefault()
+                            showSlide(-1)
+                        })
+
+                        // next click event
+                        $(next).on('click', function( e ) {
+                            e.preventDefault()
+                            showSlide(1)
+                        })
+                    // })
+                }
+
+                carousel()
+
+            })( jQuery );
+
+            // run it...
+
+        </script>
+
+
+
+
+
+
+
+
+
             <div class="row">
               <!-- post -->
               {% for post in queryset %}
@@ -54,5 +243,8 @@
         {% include 'sidebar.html' with most_recent=most_recent category_count=category_count %}
       </div>
     </div>
+
+
+
 
 {% endblock content %}

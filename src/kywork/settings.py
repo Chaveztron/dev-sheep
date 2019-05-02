@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django.contrib.sites',
 
     'allauth',
@@ -40,6 +41,10 @@ INSTALLED_APPS = [
     'crispy_forms',
     'tinymce',
     'phone_field',
+
+    "channels",
+    "django_filters",
+    "chat",
 ]
 
 #ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
@@ -76,6 +81,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'kywork.wsgi.application'
 
+ASGI_APPLICATION = "kywork.routing.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {"hosts": [("127.0.0.1", 6379)]},
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases

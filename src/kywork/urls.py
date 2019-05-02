@@ -8,6 +8,12 @@ from posts.views import \
     post_update, post_delete, post_create, search_by_type)
 from users import views as user_views
 
+from chat.views import (
+    list_chats,
+    new_chatroom,
+    conversation,
+)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,7 +30,11 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
 
     path('validar/', user_views.validar_author, name='valid'),
-    path('author/<id>/', user_views.author_detalles, name='detalles_usuario')
+    path('author/<id>/', user_views.author_detalles, name='detalles_usuario'),
+
+    path("chat/", list_chats, name="chat"),
+    path("new_chatroom/", new_chatroom, name="new_chatroom"),
+    path("chat/<int:id>/", conversation, name="conversation"),
 ]
 
 if settings.DEBUG:
