@@ -256,20 +256,28 @@ main {
                 <li>Galeria de trabajos realizados</li>
             </ul>
 
+            {% if user.is_authenticated %}
+            {% if request.user.author %}
 
-            {% if request.user == author.user %}
-            <a href="{% url 'profile' %}" class="follow">Ajustes</a>
+                {% if request.user == author.user %}
+                    <a href="{% url 'profile' %}" class="follow">Ajustes</a>
+                {% else %}
+                    <form method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="user" value="{{ user_filtered }}" hidden>
+                    <button class="follow" type="submit" >Enviar mensaje</button>
+                    <hr>
+                         <p style="color:red">{{ no_user }}</p>
+                    </form>
+                {% endif %}
+
             {% else %}
-
-            <form method="POST">
-            {% csrf_token %}
-            <input type="text" name="user" value="{{ user_filtered }}" hidden>
-            <button class="follow" type="submit" >Enviar mensaje</button>
-            <hr>
-                 <p style="color:red">{{ no_user }}</p>
-            </form>
-
+                <a href="{% url 'valid' %}" class="follow">Configura tu cuenta para enviar mensaje</a>
             {% endif %}
+            {% else %}
+                <a href="{% url 'account_login' %}" class="follow">Inicia sesión para enviar mensaje</a>
+            {% endif %}
+
             <div class="row gallery">
                 <div class="col-md-4">
                     <img src="{{ author.imagen1.url }}"/>

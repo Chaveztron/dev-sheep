@@ -1,48 +1,79 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8">
-  <title>Conversation</title>
-  <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-
-</head>
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
 <body>
-
   <style media="screen">
+    .contenedor {
+    margin-top: 1rem;
+    }
     #chat {
       margin: 0 auto;
-      width: 50%;
+      width: 100%;
+      height: 25rem;
+      background-image: linear-gradient(to top, #5ee7df 0%, #b490ca 100%);
+    }
+    @media only screen and (max-width: 736px) {
+     .contenedor {
+        margin-top: 3rem;
+        margin-bottom: -3rem;
+    }
+      #chat {
+      height: 30rem;
+    }
+    }
+    .{{ user1 }}{
+      color: white;
+         background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+          border: solid 1px whitesmoke;
+          border-radius: 10px;
+          text-align: right;
+          float: right;
+          width: 70%;
+          height: auto;
+          padding: 10px 10px;
+    }
+    .{{ user2 }}{
+    color: white;
+       background: linear-gradient(to right, #2c5364, #203a43,#0f2027);
+        border-radius: 10px;
+        text-align: justify;
+        display: inline-block;
+        padding: 0 0 0 10px;
+        vertical-align: top;
+        width: 70%;
+        padding: 10px 10px;
     }
   </style>
 
-  <ul class="nav nav-tabs bg-dark">
-    <li class="nav-item">
-      <a class="nav-link" href="/">ChatX</a>
-    </li>
-    {% if user.is_authenticated %}
-    <li class="nav-item">
-      <a class="nav-link active" href="/chat/">Chat</a>
-    </li>
-    {% else %}
-    {% endif %}
-  </ul>
-  <div class="container">
+
+  <div class="contenedor">
     <div class="jumbotron">
-      <a href="/blog/">Go Back</a>
-      <h3>Welcome {{ user1 }} and {{ user2 }}</h3>
-      <div id="chat" style="height: 200px; overflow-x:hidden; overflow-y:visible; background-color: white;"></div>
-      <div class="chat-input" style="margin: 0 auto; width: 50%">
-        <input type="text" id="message" value="">
-        <button type="submit" class="btn btn-danger" id="chat-submit">Send</button>
+      <a href="/blog/" class="btn btn-primary btn-sm">Regresar</a>
+      <h3>Conversación de {{ user1 }} y {{ user2 }}</h3>
+
+
+      <div id="chat" style=" overflow-x:hidden; overflow-y:visible;">
+
+        Aqui se concatena las p
       </div>
-    </div>
+
+      <div class="input-group mb-3">
+  <input type="text" id="message" value="" class="form-control" placeholder="Redacte un mensaje..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-success" type="submit" id="chat-submit">Enviar</button>
   </div>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+</div>
+
+
+    </div>
+
+
+
+  </div>
+
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.js"></script>
   <script>
-  $(document).ready(function() { $('body').bootstrapMaterialDesign(); });
+  $(document).ready(function() { $('body') });
   $(function() {
     // When we're using HTTPS, use WSS too.
     var date = new Date();
@@ -73,7 +104,7 @@
           var message = data[i].message;
           var sender = data[i].sender;
           var receiver = data[i].receiver;
-          $("#chat").append(`<p>${message} - ${sender}</p>`);
+          $("#chat").append(`<p class="${sender} animated pulse">${message} - ${sender}</p>`);
         }
 
         var elem = document.getElementById("chat");
@@ -110,4 +141,4 @@
   });
   </script>
 </body>
-</html>
+{% endblock content %}

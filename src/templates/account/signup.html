@@ -1,6 +1,7 @@
 {% extends "account/base2.html" %}
 {% load static %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
@@ -17,22 +18,7 @@
 			{% csrf_token %}
 			<h2 class="text-center"><strong>Crease</strong> una cuenta.</h2>
 
-			<div class="form-group">
-				<input class="form-control" type="text" name="username" placeholder="Usuario ejem(user12, jose34...)" autofocus="autofocus" minlength="1" maxlength="150" required id="id_username">
-			</div>
-
-			<div class="form-group">
-				<input class="form-control" type="email" name="email" placeholder="Correo electrónico" id="id_email" required id="id_email">
-			</div>
-
-			<div class="form-group">
-				<input class="form-control" type="password" name="password1" placeholder="Contraseña" required id="id_password1">
-			</div>
-
-			<div class="form-group">
-				<input class="form-control" type="password" name="password2" placeholder="Repita la contraseña" required id="id_password2">
-
-			</div>
+			<p style="color:red;">{{ form|crispy }}</p>
 
 			  {% if redirect_field_value %}
 			  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
@@ -50,6 +36,7 @@
 
 			<div class="form-group">
 				<button class="btn btn-primary btn-block" type="submit">Registrarme ahora</button>
+
 			</div>
 
 			<a href="{{ login_url }}" class="already">Ya tienes una cuenta? toque aquí.</a>

@@ -6,6 +6,8 @@ from .forms import CommentForm, PostForm
 from .models import Post, Author, PostView
 
 from chat.models import ChatRoom
+from django.contrib.auth.models import User
+
 
 def get_author(user):
     qs = Author.objects.filter(user=user)
@@ -100,8 +102,12 @@ def index(request):
 
 
 def blog(request):
-    chat_rooms_sender = ChatRoom.objects.all().filter(sender=request.user)
-    chat_rooms_receiver = ChatRoom.objects.all().filter(receiver=request.user)
+    if request.user.is_authenticated:
+        chat_rooms_sender = ChatRoom.objects.all().filter(sender=request.user)
+        chat_rooms_receiver = ChatRoom.objects.all().filter(receiver=request.user)
+    else:
+        chat_rooms_sender = None
+        chat_rooms_receiver = None
 
     category_count = get_category_count()
     most_recent = Post.objects.order_by('-timestamp')[0:3]
@@ -161,19 +167,23 @@ def post_create(request):
     title = 'Crea'
     form = PostForm(request.POST or None, request.FILES or None)
     author = get_author(request.user)
-    if request.method == "POST":
-        if form.is_valid():
-            form.instance.author = author
-            form.save()
-            messages.success(request, f'¡Tu oferta ha sido publicada!')
-            return redirect(reverse("post-detail", kwargs={
-                'id': form.instance.id
-            }))
-    context = {
-        'title': title,
-        'form': form
-    }
-    return render(request, "post_create.html", context)
+    try:
+        if request.user.author:
+            if request.method == "POST":
+                if form.is_valid():
+                    form.instance.author = author
+                    form.save()
+                    messages.success(request, f'¡Tu oferta ha sido publicada!')
+                    return redirect(reverse("post-detail", kwargs={
+                        'id': form.instance.id
+                    }))
+            context = {
+                'title': title,
+                'form': form
+            }
+            return render(request, "post_create.html", context)
+    except:
+        return redirect('/validar/')
 
 
 def post_update(request, id):

@@ -42,13 +42,13 @@
     </div>
     {% endfor %}
     </div>
-
+        {% comment %}
             <select id="category" class="form-control" name="category">
               <option selected>Choose...</option>
               {% for cat in category_count %}
               <option value="{{ cat }}">{{ cat.categories__title }}</option>
               {% endfor %}
             </select>
-
+        {% endcomment %}
 
 </aside>

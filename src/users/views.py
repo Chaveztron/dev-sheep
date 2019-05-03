@@ -38,7 +38,6 @@ def author_detalles(request, id):
     author = get_object_or_404(Author, id=id)
     authorV = Author.objects.get(id=id)
     publicaciones = Post.objects.filter(author = author)
-    print(authorV.author_view_count)
     numero_publicaiones = publicaciones.count()
 
     if request.user.is_authenticated:
@@ -50,7 +49,6 @@ def author_detalles(request, id):
         sender = request.user
         receiver = request.POST.get("user")
         user_receiver = User.objects.filter(username=receiver)
-        print(user_receiver)
         if sender.username != user_receiver[0].username:
             chat_rooms_1 = ChatRoom.objects.filter(
                 sender=sender, receiver=user_receiver[0]

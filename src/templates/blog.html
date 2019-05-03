@@ -10,8 +10,9 @@
         <main class="posts-listing col-lg-8">
           <div class="container">
 
-
-
+{% if user.is_authenticated %}
+            {% if request.user.author %}
+                {% if chat_rooms_sender or chat_rooms_receiver %}
 <title>$.scrollLeft()</title>
         <style type="text/css">
 
@@ -67,7 +68,7 @@
             	position: absolute;
             	width: 32px;
             	height: 32px;
-            	background: #000;
+            	background: #8500f9;
             	color: #fff;
             	text-align: center;
             	line-height: 32px;
@@ -77,7 +78,7 @@
             }
 
             .previous {
-            	left: 0;
+            	left: -15px;
             	border-radius: 50% 0 0 50%;
             }
 
@@ -118,16 +119,15 @@
 
         </style>
 
-
             <div id="first" class="carousel">
                 <div class="wrapper">
 
                     <ul>
                      {% for chat in chat_rooms_sender %}
-                     <a href="/chat/{{ chat.id }}/"> <li style="background: url({{ chat.receiver.author.profile_picture.url }}); background-repeat: no-repeat; background-size: 100%"><a href="/chat/{{ chat.id }}/">{{ chat.receiver }}</a></li></a>
+                     <a href="/chat/{{ chat.id }}/"> <li style="background: url({{ chat.receiver.author.profile_picture.url }}); background-repeat: no-repeat; background-size: 100%" class="animated zoomIn"><a href="/chat/{{ chat.id }}/">{{ chat.receiver }}</a></li></a>
                       {% endfor %}
                       {% for chat in chat_rooms_receiver %}
-                      <a href="/chat/{{ chat.id }}/"><li style="background: url({{ chat.sender.author.profile_picture.url }}); background-repeat: no-repeat; background-size: 100%"><a href="/chat/{{ chat.id }}/">{{ chat.sender }}</a></li></a>
+                      <a href="/chat/{{ chat.id }}/"><li style="background: url({{ chat.sender.author.profile_picture.url }}); background-repeat: no-repeat; background-size: 100%" class="animated zoomIn"><a href="/chat/{{ chat.id }}/">{{ chat.sender }}</a></li></a>
                       {% endfor %}
                     </ul>
 
@@ -189,8 +189,9 @@
             // run it...
 
         </script>
-
-
+            {% endif %}
+            {% endif %}
+            {% endif %}
 
 
 
