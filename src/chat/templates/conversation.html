@@ -1,6 +1,8 @@
 {% extends 'base2.html' %}
 {% load static %}
 {% block content %}
+
+
 <body>
   <style media="screen">
     .contenedor {
@@ -10,21 +12,45 @@
       margin: 0 auto;
       width: 100%;
       height: 25rem;
-      background-image: linear-gradient(to top, #5ee7df 0%, #b490ca 100%);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      background: #43cea2;  /* fallback for old browsers */
+       background: -webkit-linear-gradient(to top, #185a9d, #43cea2);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to top, #185a9d, #43cea2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     }
-    @media only screen and (max-width: 736px) {
+    @media only screen and (max-width: 667px) {
      .contenedor {
         margin-top: 3rem;
         margin-bottom: -3rem;
     }
+      h3{
+        color: white;
+      }
+      .jumbotron{
+        height: 30rem;
+        background: #8E2DE2;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+      }
+      body{
+     background: #8E2DE2;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to top, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to top, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+      }
       #chat {
-      height: 30rem;
+      height: 100%;
+        width: 100%;
     }
     }
     .{{ user1 }}{
-      color: white;
-         background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-          border: solid 1px whitesmoke;
+          color: white;
+          background: #141E30;  /* fallback for old browsers */
+          background: -webkit-linear-gradient(to top, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+          background: linear-gradient(to top, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
           border-radius: 10px;
           text-align: right;
           float: right;
@@ -33,8 +59,10 @@
           padding: 10px 10px;
     }
     .{{ user2 }}{
-    color: white;
-       background: linear-gradient(to right, #2c5364, #203a43,#0f2027);
+        color: white;
+        background: #1e3c72;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to top, #2a5298, #1e3c72);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to top, #2a5298, #1e3c72); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         border-radius: 10px;
         text-align: justify;
         display: inline-block;
@@ -43,13 +71,52 @@
         width: 70%;
         padding: 10px 10px;
     }
+
+    small{
+      background: #36D1DC;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to top, #5B86E5, #36D1DC);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to top, #5B86E5, #36D1DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+      height: auto;
+      width: auto;
+      padding: 4px 4px;
+      margin-top: -10px;
+      border-radius: 20px;
+
+    }
+
+    #message{
+      border-bottom-left-radius: 20px;
+
+    }
+    .boton{
+      border-bottom-right-radius: 20px;
+      padding-left: 20px ;
+      padding-right: 20px;
+      background: #11998e;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to top, #38ef7d, #11998e);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to top, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+      color: white;
+      border: none;
+    }
+    #audio{
+      display: none;
+        }
+
   </style>
+
 
 
   <div class="contenedor">
     <div class="jumbotron">
       <a href="/blog/" class="btn btn-primary btn-sm">Regresar</a>
-      <h3>Conversación de {{ user1 }} y {{ user2 }}</h3>
+      <h3 class="lead">
+        Conversación de
+        <strong>{{ user1 }}</strong>
+        y
+        <strong>{{ user2 }}</strong>
+      </h3>
 
 
       <div id="chat" style=" overflow-x:hidden; overflow-y:visible;">
@@ -60,7 +127,7 @@
       <div class="input-group mb-3">
   <input type="text" id="message" value="" class="form-control" placeholder="Redacte un mensaje..." aria-label="Recipient's username" aria-describedby="basic-addon2">
   <div class="input-group-append">
-    <button class="btn btn-success" type="submit" id="chat-submit">Enviar</button>
+    <button class="boton" type="submit" id="chat-submit">Enviar</button>
   </div>
 </div>
 
@@ -71,7 +138,13 @@
 
   </div>
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.js"></script>
+
+    <audio id="audio" controls>
+<source type="audio/wav" src="https://www.noiseforfun.com/waves/interface-and-media/NFF-prompt-soft.wav">
+</audio>
+
+      <script src="{% static 'js/reconnecting-websocket.js' %}"></script>
+
   <script>
   $(document).ready(function() { $('body') });
   $(function() {
@@ -104,9 +177,10 @@
           var message = data[i].message;
           var sender = data[i].sender;
           var receiver = data[i].receiver;
-          $("#chat").append(`<p class="${sender} animated pulse">${message} - ${sender}</p>`);
+          $("#chat").append(`<p class="${sender} animated pulse">${message}  <small>${sender}</small></p>`);
         }
-
+        var audio = document.getElementById("audio");
+        audio.play();
         var elem = document.getElementById("chat");
         elem.scrollTop = elem.scrollHeight;
 
@@ -140,5 +214,7 @@
     };
   });
   </script>
+
+
 </body>
 {% endblock content %}

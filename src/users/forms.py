@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from posts.models import Author, Idioma
 from django.forms.widgets import CheckboxSelectMultiple
 #from django.forms import modelformset_factory
+from phone_field import PhoneField
+
 
 class UserUpdateForm(forms.ModelForm):
 
@@ -38,11 +40,41 @@ class ValidAuthor(forms.ModelForm):
         model = Author
         fields = ['telefono', 'idiomas']
 
+    def clean_telefono(self, *args, **kwargs):
+        telefono = self.cleaned_data.get("telefono")
+        print(telefono)
+        if telefono == "":
+            raise forms.ValidationError("Escriba su numero de teléfono por favor")
+        else:
+            return telefono
+
 class ValidUser(forms.ModelForm):
+    email = forms.EmailInput(attrs={'placeholder': 'Correo electronico'})
+    first_name = forms.TextInput(attrs={'placeholder': 'Nombre'})
+    last_name = forms.TextInput(attrs={'placeholder': 'Apellidos'})
+    username = forms.TextInput(attrs={'placeholder': 'username'})
+
     class Meta:
         model = User
-        widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Apellidos'}),
-        }
-        fields = ['first_name', 'last_name']
+        fields = ( 'username', 'email', 'first_name', 'last_name',)
+
+    def clean_first_name(self, *args, **kwargs):
+        first_name = self.cleaned_data.get("first_name")
+        if first_name == "":
+            raise forms.ValidationError("Escriba su nombre por favor")
+        else:
+            return first_name
+
+    def clean_last_name(self, *args, **kwargs):
+        last_name = self.cleaned_data.get("last_name")
+        if last_name == "":
+            raise forms.ValidationError("Escriba sus apellidos por favor")
+        else:
+            return last_name
+
+    def clean_email(self, *args, **kwargs):
+        email = self.cleaned_data.get("email")
+        if email == "":
+            raise forms.ValidationError("Es importante que tenga un email, en caso de olvidar la contraseña lo necesitara")
+        else:
+            return email

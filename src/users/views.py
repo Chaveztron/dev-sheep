@@ -11,7 +11,6 @@ from django.contrib.auth.models import User
 def validar_author(request):
     if request.method == 'POST':
         form_user = ValidUser(request.POST, instance=request.user)
-        print(form_user)
         form = ValidAuthor(request.POST)
         if form.is_valid() and form_user.is_valid():
             instance = form.save(commit=False)
@@ -33,13 +32,13 @@ def validar_author(request):
 
     return render(request, 'users/validar.html', context)
 
-
+@login_required
 def author_detalles(request, id):
     author = get_object_or_404(Author, id=id)
     authorV = Author.objects.get(id=id)
     publicaciones = Post.objects.filter(author = author)
     numero_publicaiones = publicaciones.count()
-
+    #print(author.cv.url)
     if request.user.is_authenticated:
         AuthorView.objects.get_or_create(user=request.user, author=author)
 

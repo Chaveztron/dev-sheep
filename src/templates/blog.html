@@ -123,12 +123,13 @@
                 <div class="wrapper">
 
                     <ul>
+                        {% for chat in chat_rooms_receiver %}
+                      <a href="/chat/{{ chat.id }}/"><li style="background: url({{ chat.sender.author.profile_picture.url }}); background-repeat: no-repeat; background-size: 100%" class="animated zoomIn"><a href="/chat/{{ chat.id }}/">{{ chat.sender }}</a></li></a>
+                      {% endfor %}
                      {% for chat in chat_rooms_sender %}
                      <a href="/chat/{{ chat.id }}/"> <li style="background: url({{ chat.receiver.author.profile_picture.url }}); background-repeat: no-repeat; background-size: 100%" class="animated zoomIn"><a href="/chat/{{ chat.id }}/">{{ chat.receiver }}</a></li></a>
                       {% endfor %}
-                      {% for chat in chat_rooms_receiver %}
-                      <a href="/chat/{{ chat.id }}/"><li style="background: url({{ chat.sender.author.profile_picture.url }}); background-repeat: no-repeat; background-size: 100%" class="animated zoomIn"><a href="/chat/{{ chat.id }}/">{{ chat.sender }}</a></li></a>
-                      {% endfor %}
+
                     </ul>
 
                 </div>

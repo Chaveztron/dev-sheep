@@ -9,7 +9,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-7" data-aos="fade-down" data-aos-duration="1000">
-            <h1>IMPULSAMOS Y FORTALECEMOS TU TALENTO</h1>
+            <h1 >IMPULSAMOS Y FORTALECEMOS TU TALENTO</h1>
             <a href="#" class="hero-link">
             EL TRABAJO IDEAL PARA LA PERSONA IDEAL
           </a>
@@ -22,7 +22,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8">
-            <h2 class="h3">KyWork</h2>
+            <h2 class="display-4">KyWork</h2>
             <p class="text-big">
               Una Red Social de trabajos donde podrás encontrar una amplia variedad de vacantes
               como también ofrecer tus servicios,
@@ -50,13 +50,13 @@
                     <a href="#">{{ cat }}</a>
                     {% endfor %}
                   </div><a href="{{ obj.get_absolute_url }}">
-                    <h2 class="h4">{{ obj.title }}</h2>
+                    <h1 class="lead">{{ obj.title }}</h1>
                 </a>
                 </header>
                 <p>{{ obj.overview }}</p>
                 <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
                     <div class="avatar"><img src="{{ obj.author.profile_picture.url }}" alt="..." class="img-fluid"></div>
-                    <div class="title"><span>{{ obj.author }}</span></div></a>
+                    <div class="title"><span>{{ obj.author.user }}</span></div></a>
                   <div class="date"><i class="icon-clock"></i>Hace {{ obj.timestamp|timesince }}</div>
                   <div class="comments"><i class="icon-comment"></i>{{ obj.peticiones_count }}</div>
                 </footer>

@@ -186,6 +186,7 @@ def post_create(request):
         return redirect('/validar/')
 
 
+
 def post_update(request, id):
     title = 'Modifica'
     post = get_object_or_404(Post, id=id)

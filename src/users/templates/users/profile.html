@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
+
         <form method="POST" enctype="multipart/form-data">
           {% csrf_token %}
             <br>
@@ -60,7 +61,7 @@
 
                   </div>
 
-                  <table class="table table-bordered col-lg-3 table-responsive-sm">
+                  <table class="table table-bordered col-lg-3 table-responsive-sm"  id="cv">
                       <thead>
                         <tr>
                           <td colspan="3" ">La portada del perfil <br>{{ p_form.portada }}</td>

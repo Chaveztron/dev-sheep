@@ -1,19 +1,116 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="col-8 offset-1 mb-5 mt-5">
-    <h3>{{ title }} tu oferta aqui</h3>
+
+<style>
+    body{
+        margin-top: 4rem;
+    }
+    input[type="checkbox"] {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    -webkit-appearance: none;
+    background: #c6c6c6;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,.2);
+    transition: .5s
+    }
+
+    input:checked[type="checkbox"] {
+  background: #8E2DE2;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to top, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to top, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+
+    input[type="checkbox"]:before {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+        top: 0;
+        left: 0;
+        background: #fff;
+        transform: scale(1.1);
+        box-shadow: 0 2px 5px rgba(0,0,0,.2);
+        border: .05em solid #ececec;
+        transition: .5s;
+        line-height: 40px;
+        color: #efefef;
+        text-shadow: 0 2px -1px #ccc;
+        text-align: center;
+    }
+
+    input:checked[type="checkbox"]:before {
+        left: 20px;
+    }
+
+
+    input[type="checkbox"] ~ label:before {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      content: '\f192';
+      font-family: FontAwesome;
+      top: 15px;
+      left: 9px;
+          transition: .5s;
+      color: rgba(189, 195, 199, 1);
+
+      }
+
+    input:checked[type="checkbox"] ~ label:before {
+      color: rgba(0,176,255,1);
+           left: 29px;
+          transition: .5s;
+    }
+
+</style>
+
+<body class="card-body">
+    <h3 class="display-4">{{ title }} tu oferta aqui</h3>
+
+    <script>
+       function countChars(obj){
+           var maxLength = 100;
+           var strLength = obj.value.length;
+           var charRemain = (maxLength - strLength);
+            if(charRemain < 0){
+                document.getElementById("charNum").innerHTML = '<span style="color: red;">Tú has excedido él limite de '+maxLength+' letras</span>';
+            }else{
+                document.getElementById("charNum").innerHTML = 'Titulo: '+charRemain+' letras restantes';
+            }
+        }
+        function countChars2(obj){
+           var maxLength = 220;
+           var strLength = obj.value.length;
+           var charRemain = (maxLength - strLength);
+            if(charRemain < 0){
+                document.getElementById("charNum2").innerHTML = '<span style="color: red;">Tú has excedido él limite de '+maxLength+' letras</span>';
+            }else{
+                document.getElementById("charNum2").innerHTML = 'Descripción: '+charRemain+' letras restantes';
+            }
+        }
+    </script>
+
+
+<p id="charNum" class="lead">Titulo: 100 letras restantes</p>
+<p id="charNum2" class="lead">Descripción: 220 letras restantes</p>
     {{ form.media }}
-    <form method="POST" action="." enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" type="submit">Publicar oferta de trabajo</button>
 
 
     </form>
 
-</div>
+</body>
 {% endblock content %}
 

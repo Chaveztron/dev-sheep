@@ -2,7 +2,11 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-
+<style>
+    .errorlist{
+        color: red;
+    }
+</style>
         <form method="POST" enctype="multipart/form-data">
           {% csrf_token %}
            <fieldset class="form-group col-12 mr-1 mb-5 mt-5">
@@ -10,30 +14,11 @@
   	            <hr>
               <div class="row">
                    <div class="col-md-9 personal-info">
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label">Nombre completo</label>
-                                    <div class="col-lg-8">
-                                      {{ form_user.first_name }}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label">Apellidos</label>
-                                    <div class="col-lg-8">
-                                      {{ form_user.last_name }}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label">Numero Telefónico</label>
-                                    <div class="col-lg-8">
-                                      {{ form.telefono }}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label">Idiomas que domina:</label>
-                                    <div class="col-lg-8">
-                                      {{ form.idiomas }}
-                                    </div>
-                                </div>
+                       <small class="lead">En caso de no estar conforme con su nombre de usuario, puede cambiarlo<small>
+                                      {{ form_user|crispy }}
+
+
+                                      {{ form }}
 
                   </div>
 
