@@ -124,10 +124,10 @@
 
                     <ul>
                         {% for chat in chat_rooms_receiver %}
-                      <a href="/chat/{{ chat.id }}/"><li style="background: url({{ chat.sender.author.profile_picture.url }}); background-repeat: no-repeat; background-size: 100%" class="animated zoomIn"><a href="/chat/{{ chat.id }}/">{{ chat.sender }}</a></li></a>
+                      <a href="/chat/{{ chat.id }}/"><li style="background: url({{ chat.sender.author.profile_picture.url }}); background-repeat: no-repeat; background-size: 100%" class="animated zoomIn"><a href="/chat/{{ chat.id }}/">{{ chat.sender|truncatechars:9 }}</a></li></a>
                       {% endfor %}
                      {% for chat in chat_rooms_sender %}
-                     <a href="/chat/{{ chat.id }}/"> <li style="background: url({{ chat.receiver.author.profile_picture.url }}); background-repeat: no-repeat; background-size: 100%" class="animated zoomIn"><a href="/chat/{{ chat.id }}/">{{ chat.receiver }}</a></li></a>
+                     <a href="/chat/{{ chat.id }}/"> <li style="background: url({{ chat.receiver.author.profile_picture.url }}); background-repeat: no-repeat; background-size: 100%" class="animated zoomIn"><a href="/chat/{{ chat.id }}/">{{ chat.receiver|truncatechars:9 }}</a></li></a>
                       {% endfor %}
 
                     </ul>
@@ -218,7 +218,7 @@
                   <p class="text-muted">{{ post.overview }}</p>
                   <footer class="post-footer d-flex align-items-center"><a href="{{ post.author.get_absolute_url }}" class="author d-flex align-items-center flex-wrap">
                       <div class="avatar"><img src="{{ post.author.profile_picture.url }}" alt="..." class="img-fluid"></div>
-                      <div class="title"><span>{{ post.author.user.username }}</span></div></a>
+                      <div class="title"><span>{{ post.author.user.username|truncatechars:9  }}</span></div></a>
                     <div class="date"><i class="icon-clock"></i>Hace {{ post.timestamp|timesince }}</div>
                     <div class="comments meta-last"><i class="icon-comment"></i>{{ post.peticiones_count }}</div>
                   </footer>

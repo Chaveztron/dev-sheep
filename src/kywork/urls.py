@@ -35,6 +35,7 @@ urlpatterns = [
     path("chat/", list_chats, name="chat"),
     path("new_chatroom/", new_chatroom, name="new_chatroom"),
     path("chat/<int:id>/", conversation, name="conversation"),
+
 ]
 
 if settings.DEBUG:

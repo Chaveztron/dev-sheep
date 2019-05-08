@@ -42,20 +42,68 @@ class PostForm(forms.ModelForm):
 
     def clean_title(self, *args, **kwargs):
         title = self.cleaned_data.get("title")
+        valid_characters = 'áabcdeéfghiíjklmnoópqrstuúvwxyznAÁBCDEÉFGHIJKLMNOÓPQRSTUÚVWXYZÑ 1234567890,.¿?¡!'
         if len(title) > 100:
             raise forms.ValidationError("Tu titulo no debe de exceder 100 letras")
         elif len(title) < 10:
             raise forms.ValidationError("Tu titulo es demasiado corto, escriba más de 10 letras")
+        elif not all(char in valid_characters for char in title):
+            raise forms.ValidationError("Solo caracteres, evite los signos y emojis")
         else:
+            python = title
+            dicPalabras = python.split(' ')
+            dic = []
+            count = 0
+            for palabra in dicPalabras:
+                if len(palabra) > 33:
+                    word = []
+                    for letra in palabra:
+                        count = count + 1
+                        if count % 33 == 0:
+                            word.append('\n')
+                            word.append(letra)
+                        else:
+                            word.append(letra)
+                    palabra = ''.join(word)
+                    dic.append(palabra)
+                else:
+                    dic.append(palabra)
+
+            title = ' '.join(dic)
+
             return title
 
     def clean_overview(self, *args, **kwargs):
         overview = self.cleaned_data.get("overview")
+        valid_characters = 'áabcdeéfghiíjklmnoópqrstuúvwxyznAÁBCDEÉFGHIJKLMNOÓPQRSTUÚVWXYZÑ 1234567890,.'
         if len(overview) > 220:
             raise forms.ValidationError("Tu descripción no debe de exceder 220 letras")
         elif len(overview) < 20:
             raise forms.ValidationError("Tu descripción es demasiado corto, escriba más de 20 letras")
+        elif not all(char in valid_characters for char in overview):
+            raise forms.ValidationError("Solo caracteres, evite los signos y emojis")
         else:
+            python = overview
+            dicPalabras = python.split(' ')
+            dic = []
+            count = 0
+            for palabra in dicPalabras:
+                if len(palabra) > 33:
+                    word = []
+                    for letra in palabra:
+                        count = count + 1
+                        if count % 33 == 0:
+                            word.append('\n')
+                            word.append(letra)
+                        else:
+                            word.append(letra)
+                    palabra = ''.join(word)
+                    dic.append(palabra)
+                else:
+                    dic.append(palabra)
+
+            overview =' '.join(dic)
+
             return overview
 
 

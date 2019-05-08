@@ -2,9 +2,58 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
+<style>
+    #id_telefono_1{
+        display: none;
+    }
+    #id_cv{
+          background-color: #064263; /* Green */
+          border: none;
+          color: white;
+          padding: 16px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          -webkit-transition-duration: 0.4s; /* Safari */
+          transition-duration: 0.4s;
+          cursor: pointer;
+    }
+    #id_cv:hover{
+          background-color: white;
+          color: black;
+          border: 2px solid #b2008c;
+    }
 
+</style>
 
         <form method="POST" enctype="multipart/form-data">
+                            {% for error in p_form.cv.errors %}
+                                <div class="alert alert-danger">
+                                    <h1 class="lead">{{ error|escape }}</h1>
+                                </div>
+                          {% endfor %}
+                            {% for error in u_form.first_name.errors %}
+                                <div class="alert alert-danger">
+                                    <h1 class="lead">{{ error|escape }}</h1>
+                                </div>
+                          {% endfor %}
+                            {% for error in u_form.last_name.errors %}
+                                <div class="alert alert-danger">
+                                    <h1 class="lead">{{ error|escape }}</h1>
+                                </div>
+                            {% endfor %}
+                            {% for error in u_form.email.errors %}
+                                <div class="alert alert-danger">
+                                    <h1 class="lead">{{ error|escape }}</h1>
+                                </div>
+                            {% endfor %}
+                            {% for error in p_form.telefono.errors %}
+                                <div class="alert alert-danger">
+                                    <h1 class="lead">{{ error|escape }}</h1>
+                                </div>
+                            {% endfor %}
           {% csrf_token %}
             <br>
 
@@ -80,7 +129,14 @@
 
                         </tr>
                       <tr>
-                         <td colspan="3">Curriculum <br>{{ p_form.cv }}</td>
+                         <td colspan="3">Curriculum <br>{{ p_form.cv }}
+                         {% for error in p_form.cv.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                          {% endfor %}
+                         </td>
+
                         </tr>
                       </tbody>
                     </table>

@@ -113,9 +113,9 @@
       <a href="/blog/" class="btn btn-primary btn-sm">Regresar</a>
       <h3 class="lead">
         Conversación de
-        <strong>{{ user1 }}</strong>
+        <strong>{{ user1|truncatechars:9 }}</strong>
         y
-        <strong>{{ user2 }}</strong>
+        <strong>{{ user2|truncatechars:9 }}</strong>
       </h3>
 
 
@@ -177,7 +177,8 @@
           var message = data[i].message;
           var sender = data[i].sender;
           var receiver = data[i].receiver;
-          $("#chat").append(`<p class="${sender} animated pulse">${message}  <small>${sender}</small></p>`);
+          var trimmedPathname = sender.substring(0, Math.min(9,sender.length));  // acorta los nombres enormes
+          $("#chat").append(`<p class="${sender} animated pulse">${message}  <small>${trimmedPathname}</small></p>`);
         }
         var audio = document.getElementById("audio");
         audio.play();

@@ -50,10 +50,10 @@
                     <a href="#">{{ cat }}</a>
                     {% endfor %}
                   </div><a href="{{ obj.get_absolute_url }}">
-                    <h1 class="lead">{{ obj.title }}</h1>
+                    <h1 class="lead">{{ obj.title|truncatechars:70 }}</h1>
                 </a>
                 </header>
-                <p>{{ obj.overview }}</p>
+                <p>{{ obj.overview|truncatechars:70 }}</p>
                 <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
                     <div class="avatar"><img src="{{ obj.author.profile_picture.url }}" alt="..." class="img-fluid"></div>
                     <div class="title"><span>{{ obj.author.user }}</span></div></a>
@@ -109,8 +109,8 @@
                   {% endfor %}
                 </div>
               </div><a href="#">
-                <h3 class="h4">{{ obj.title }}</h3></a>
-              <p class="text-muted">{{ obj.overview }}</p>
+                <h3 class="h4">{{ obj.title|truncatechars:70 }}</h3></a>
+              <p class="text-muted">{{ obj.overview|truncatechars:70 }}</p>
             </div>
           </div>
           {% endfor %}
