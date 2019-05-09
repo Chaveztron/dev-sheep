@@ -64,18 +64,27 @@ def author_detalles(request, id):
                     id_chat = str(chat_room.id)
                     return redirect("/chat/"+id_chat) ## te redirecciona al chat list
                 else:
-                    return render(
-                        request,
-                        "users/author_details.html",
-                        {
-                            'author': author,
-                            'authorV': authorV,
-                            'publicaciones': publicaciones,
-                            'numero_publicaciones': numero_publicaiones,
-                            "user_filtered": user_list,
-                            "no_user": "Chat already exists",
-                        },
-                    )
+                    chat_rooms_sender = ChatRoom.objects.all().filter(sender=author.user)
+                    chat_rooms_receiver = ChatRoom.objects.all().filter(receiver=author.user)
+                    bandeja = None
+                    for chat in chat_rooms_receiver:
+                        if chat.sender == request.user:
+                            bandeja = chat.id
+
+                    for chat in chat_rooms_sender:
+                        if chat.sender == request.user:
+                            bandeja = chat.id
+
+                    for chat in chat_rooms_receiver:
+                        if chat.receiver == request.user:
+                            bandeja = chat.id
+
+                    for chat in chat_rooms_sender:
+                        if chat.receiver == request.user:
+                            bandeja = chat.id
+
+                    id_chat = str(bandeja)
+                    return redirect("/chat/" + id_chat)
             else:
                 return render(
                     request,

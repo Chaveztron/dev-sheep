@@ -88,6 +88,55 @@ class ProfileUpdateForm(forms.ModelForm):
         else:
             return telefono
 
+    def clean_portada(self, *args, **kwargs):
+        portada = self.cleaned_data.get("portada")
+        if portada.size > 2621440:
+            raise forms.ValidationError('Suba una imagen menor a 2.5 MB')
+        else:
+            return portada
+
+    def clean_imagen1(self, *args, **kwargs):
+        imagen1 = self.cleaned_data.get("imagen1")
+        if imagen1.size > 2621440:
+            raise forms.ValidationError('Suba una imagen menor a 2.5 MB')
+        else:
+            return imagen1
+
+    def clean_imagen2(self, *args, **kwargs):
+        imagen2 = self.cleaned_data.get("imagen2")
+        if imagen2.size > 2621440:
+            raise forms.ValidationError('Suba una imagen menor a 2.5 MB')
+        else:
+            return imagen2
+
+    def clean_imagen3(self, *args, **kwargs):
+        imagen3 = self.cleaned_data.get("imagen3")
+        if imagen3.size > 2621440:
+            raise forms.ValidationError('Suba una imagen menor a 2.5 MB')
+        else:
+            return imagen3
+
+    def clean_imagen4(self, *args, **kwargs):
+        imagen4 = self.cleaned_data.get("imagen4")
+        if imagen4.size > 2621440:
+            raise forms.ValidationError('Suba una imagen menor a 2.5 MB')
+        else:
+            return imagen4
+
+    def clean_imagen5(self, *args, **kwargs):
+        imagen5 = self.cleaned_data.get("imagen5")
+        if imagen5.size > 2621440:
+            raise forms.ValidationError('Suba una imagen menor a 2.5 MB')
+        else:
+            return imagen5
+
+    def clean_imagen6(self, *args, **kwargs):
+        imagen6 = self.cleaned_data.get("imagen6")
+        if imagen6.size > 2621440:
+            raise forms.ValidationError('Suba una imagen menor a 2.5 MB')
+        else:
+            return imagen6
+
 class ValidAuthor(forms.ModelForm):
     idiomas = forms.ModelMultipleChoiceField(queryset=Idioma.objects.all(), widget=forms.CheckboxSelectMultiple,
                                              required=True, label='Idiomas que domina')

@@ -40,6 +40,13 @@ class PostForm(forms.ModelForm):
         fields = ('title', 'overview', 'content', 'thumbnail',
                   'categories',)
 
+        def clean_thumbnail(self, *args, **kwargs):
+            thumbnail = self.cleaned_data.get("thumbnail")
+            if thumbnail.size > 5242880:
+                raise forms.ValidationError('Suba una imagen menor a 5 MB')
+            else:
+                return thumbnail
+
     def clean_title(self, *args, **kwargs):
         title = self.cleaned_data.get("title")
         valid_characters = 'áabcdeéfghiíjklmnoópqrstuúvwxyznAÁBCDEÉFGHIJKLMNOÓPQRSTUÚVWXYZÑ 1234567890,.¿?¡!'

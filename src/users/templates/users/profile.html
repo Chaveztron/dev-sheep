@@ -19,6 +19,7 @@
           -webkit-transition-duration: 0.4s; /* Safari */
           transition-duration: 0.4s;
           cursor: pointer;
+        border-radius: 20px;
     }
     #id_cv:hover{
           background-color: white;
@@ -34,26 +35,17 @@
                                     <h1 class="lead">{{ error|escape }}</h1>
                                 </div>
                           {% endfor %}
-                            {% for error in u_form.first_name.errors %}
-                                <div class="alert alert-danger">
-                                    <h1 class="lead">{{ error|escape }}</h1>
-                                </div>
-                          {% endfor %}
-                            {% for error in u_form.last_name.errors %}
-                                <div class="alert alert-danger">
-                                    <h1 class="lead">{{ error|escape }}</h1>
-                                </div>
-                            {% endfor %}
-                            {% for error in u_form.email.errors %}
-                                <div class="alert alert-danger">
-                                    <h1 class="lead">{{ error|escape }}</h1>
-                                </div>
-                            {% endfor %}
+
                             {% for error in p_form.telefono.errors %}
                                 <div class="alert alert-danger">
                                     <h1 class="lead">{{ error|escape }}</h1>
                                 </div>
                             {% endfor %}
+                            {% for error in p_form.errors %}
+                                <div class="alert alert-danger">
+                                    <small>{{ error|escape }}</small>
+                                </div>
+                                {% endfor %}
           {% csrf_token %}
             <br>
 
@@ -67,6 +59,11 @@
                           <h6>suba una foto diferente...</h6>
 
                           {{ p_form.profile_picture }}
+                                        {% for error in p_form.profile_picture.errors %}
+                                            <div class="alert alert-danger">
+                                                <h1 class="lead">{{ error|escape }}</h1>
+                                            </div>
+                                        {% endfor %}
                         </div>
                       </div>
                    <div class="col-md-9 personal-info">
@@ -74,18 +71,33 @@
                                     <label class="col-lg-3 control-label">Identificador de usuario</label>
                                     <div class="col-lg-8">
                                       {{ u_form.username }}
+                                        {% for error in u_form.username.errors %}
+                                            <div class="alert alert-danger">
+                                                <h1 class="lead">{{ error|escape }}</h1>
+                                            </div>
+                                        {% endfor %}
                                     </div>
                                   </div>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Nombre</label>
                                     <div class="col-lg-8">
                                       {{ u_form.first_name }}
+                                        {% for error in u_form.first_name.errors %}
+                                            <div class="alert alert-danger">
+                                                <h1 class="lead">{{ error|escape }}</h1>
+                                            </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Apellidos</label>
                                     <div class="col-lg-8">
                                       {{ u_form.last_name }}
+                                        {% for error in u_form.last_name.errors %}
+                                            <div class="alert alert-danger">
+                                                <h1 class="lead">{{ error|escape }}</h1>
+                                            </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -93,65 +105,164 @@
                                     <div class="col-lg-8">
                                       {{ u_form.email }}
                                         <a href="{% url 'account_email' %}" class="btn btn-primary ">Cambiar o agregar E-mail</a>
+                                        {% for error in u_form.email.errors %}
+                                            <div class="alert alert-danger">
+                                                <h1 class="lead">{{ error|escape }}</h1>
+                                            </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Numero Telefónico</label>
                                     <div class="col-lg-8">
                                       {{ p_form.telefono }}
+
+                                        {% for error in  p_form.telefono.errors %}
+                                        <div class="alert alert-danger">
+                                            <h1 class="lead">{{ error|escape }}</h1>
+                                        </div>
+                                    {% endfor %}
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label">Idiomas que domina:</label>
-                                    <div class="col-lg-8">
+                                <div class="form-group row">
+
+
+                                    <div class="col-lg-4">
+                                        <label class="control-label">Idiomas que domina:</label>
                                       {{ p_form.idiomas }}
                                     </div>
+                                    {% for error in  p_form.idiomas.errors %}
+                                        <div class="alert alert-danger">
+                                            <h1 class="lead">{{ error|escape }}</h1>
+                                        </div>
+                                    {% endfor %}
                                 </div>
-
                   </div>
 
-                  <table class="table table-bordered col-lg-3 table-responsive-sm"  id="cv">
-                      <thead>
-                        <tr>
-                          <td colspan="3" ">La portada del perfil <br>{{ p_form.portada }}</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>{{ p_form.imagen1 }}</td>
-                          <td>{{ p_form.imagen2 }}</td>
-                          <td>{{ p_form.imagen3 }}</td>
-                        </tr>
-                        <tr>
-                           <td>{{ p_form.imagen4 }}</td>
-                          <td>{{ p_form.imagen5 }}</td>
-                          <td>{{ p_form.imagen6 }}</td>
 
-                        </tr>
-                      <tr>
-                         <td colspan="3">Curriculum <br>{{ p_form.cv }}
+
+
+
+
+
+
+              </div>
+
+
+          </fieldset>
+                <style>
+                      .sq{
+                          height: 190px;
+                          width: 340px;
+                          border-radius: 20px;
+                          margin: 10px;
+                          padding-top: 50px;
+                          padding-left: 0.5rem;
+                          background: #fc5c7d; /* fallback for old browsers */
+                          background: -webkit-linear-gradient(to top, #fc5c7d, #6a82fb); /* Chrome 10-25, Safari 5.1-6 */
+                          background: linear-gradient(to top, #fc5c7d, #6a82fb); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                          color: white;
+                      }
+                      .sq a, .rec a{
+                          color: #8de891;
+                      }
+                      .rec{
+                          height: 15%;
+                          width: 85%;
+                          border-radius: 20px;
+                          padding-top: 1%;
+                          padding-left: 5%;
+                          background: #00c6ff;  /* fallback for old browsers */
+                          background: -webkit-linear-gradient(to top, #0072ff, #00c6ff);  /* Chrome 10-25, Safari 5.1-6 */
+                          background: linear-gradient(to top, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+                          color: white;
+                      }
+
+                  </style>
+            <div class="col-12 mr-1 mb-5 mt-5">
+                <h4 class="lead" data-aos="fade-down">En esta barra azul, usted seleccionara la imagen de portada que tendrá su perfil</h4>
+                      <div class="rec" data-aos="zoom-out">La portada del perfil <br>{{ p_form.portada }}
+                      {% for error in p_form.portada.errors %}
+                                            <div class="alert alert-danger">
+                                                <small>{{ error|escape }}</small>
+                                            </div>
+                                        {% endfor %}
+
+                      </div>
+                    <h4 class="lead" style="margin-top: 12px" data-aos="fade-down">Los siguientes cuadros, usted podrá subir
+                        imágenes de sus trabajos realizados, solo toque <strong>"Seleccionar archivo"</strong>
+                    </h4>
+                       <div class="row">
+                           <div class="sq" data-aos="fade-down-right">
+                               {{ p_form.imagen1 }}
+                               {% for error in p_form.imagen1.errors %}
+                                <div class="alert alert-danger">
+                                    <small>{{ error|escape }}</small>
+                                </div>
+                                {% endfor %}
+                           </div>
+                           <div class="sq" data-aos="fade-down">
+                                {{ p_form.imagen2 }}
+                                {% for error in p_form.imagen2.errors %}
+                                <div class="alert alert-danger">
+                                    <small>{{ error|escape }}</small>
+                                </div>
+                                {% endfor %}
+                           </div>
+                           <div class="sq" data-aos="fade-down-left">
+                                {{ p_form.imagen3 }}
+                                {% for error in p_form.imagen3.errors %}
+                                <div class="alert alert-danger">
+                                    <small>{{ error|escape }}</small>
+                                </div>
+                                {% endfor %}
+                           </div>
+                       </div>
+                      <div class="row">
+                           <div class="sq" data-aos="fade-up-right">
+                               {{ p_form.imagen4 }}
+                               {% for error in p_form.imagen4.errors %}
+                                <div class="alert alert-danger">
+                                    <small>{{ error|escape }}</small>
+                                </div>
+                                {% endfor %}
+                           </div>
+                           <div class="sq" data-aos="fade-up">
+                                {{ p_form.imagen5 }}
+                               {% for error in p_form.imagen5.errors %}
+                                <div class="alert alert-danger">
+                                    <small>{{ error|escape }}</small>
+                                </div>
+                                {% endfor %}
+                           </div>
+                           <div class="sq" id="cv" data-aos="fade-up-left">
+                                {{ p_form.imagen6 }}
+                               {% for error in p_form.imagen6.errors %}
+                                <div class="alert alert-danger">
+                                    <small>{{ error|escape }}</small>
+                                </div>
+                                {% endfor %}
+                           </div>
+                       </div>
+                <div data-aos="zoom-out-up"><small class="lead">Suba su curriculum en <strong>"Seleccionar archivo",</strong> <b style="color: red">asegurese que sea .pdf</b></small><br>{{ p_form.cv }}
                          {% for error in p_form.cv.errors %}
                                 <div class="alert alert-danger">
                                     <strong>{{ error|escape }}</strong>
                                 </div>
                           {% endfor %}
-                         </td>
+                         </div>
+                        <div class="form-group">
+                          <button class="btn btn-info" type="submit">Actualizar mi informacion</button>
+                            <a href="{{ request.user.author.get_absolute_url }}" class="btn btn-danger">Cancelar</a>
+                        </div>
 
-                        </tr>
-                      </tbody>
-                    </table>
-
-
-
-              </div>
-            <div class="form-group">
-              <button class="btn btn-outline-info" type="submit">Actualizar mi informacion</button>
-                <a href="{{ request.user.author.get_absolute_url }}" class="btn btn-danger">Cancelar</a>
-          </div>
-
-          </fieldset>
+                  </div>
 
       </form>
 
     </div>
+
+
+
 {% endblock content %}
