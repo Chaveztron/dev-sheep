@@ -98,14 +98,22 @@ background: linear-gradient(to top, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, Fir
             }
         }
     </script>
-
-
+                                {% for error in form.thumbnail.errors %}
+                                <div class="alert alert-danger">
+                                    <small>{{ error|escape }}</small>
+                                </div>
+                                {% endfor %}
 <p id="charNum" class="lead">Titulo: 100 letras restantes</p>
 <p id="charNum2" class="lead">Descripción: 220 letras restantes</p>
     {{ form.media }}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
+        {% for error in form.categories.errors %}
+        <div class="alert alert-danger">
+            <small>{{ error|escape }}</small>
+        </div>
+        {% endfor %}
         <button class="btn btn-primary" type="submit">Publicar oferta de trabajo</button>
 
 

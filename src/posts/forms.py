@@ -42,10 +42,15 @@ class PostForm(forms.ModelForm):
 
         def clean_thumbnail(self, *args, **kwargs):
             thumbnail = self.cleaned_data.get("thumbnail")
+            tipo_archivo = str(thumbnail)
+            extension = tipo_archivo[-4:]
+
             if thumbnail.size > 5242880:
                 raise forms.ValidationError('Suba una imagen menor a 5 MB')
-            else:
+            elif extension == '.jpg' or extension == 'PEG' or extension == '.gif' or extension == '.PNG' or extension == '.png' or extension == '.BMP' or extension == '.bmp':
                 return thumbnail
+            else:
+                raise forms.ValidationError('En la imagen de la miniatura, debe de ser JPG, GIF, PNG y BMP')
 
     def clean_title(self, *args, **kwargs):
         title = self.cleaned_data.get("title")
@@ -62,11 +67,11 @@ class PostForm(forms.ModelForm):
             dic = []
             count = 0
             for palabra in dicPalabras:
-                if len(palabra) > 33:
+                if len(palabra) > 15:
                     word = []
                     for letra in palabra:
                         count = count + 1
-                        if count % 33 == 0:
+                        if count % 15 == 0:
                             word.append('\n')
                             word.append(letra)
                         else:
