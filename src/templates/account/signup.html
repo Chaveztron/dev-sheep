@@ -22,7 +22,7 @@
 
 		<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
 			{% csrf_token %}
-			<h2 class="text-center"><strong>Crease</strong> una cuenta.</h2>
+			<h2 class="text-center"><strong>Crear</strong> una cuenta.</h2>
 
 			<p style="color:red;">{{ form|crispy }}</p>
 
