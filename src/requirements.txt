@@ -30,6 +30,8 @@ jsmin==2.2.2
 msgpack==0.6.0
 oauthlib==3.0.1
 Pillow==5.4.1
+psycopg2==2.7.5
+psycopg2-binary==2.8.2
 pycparser==2.19
 pydot==1.4.1
 PyHamcrest==1.9.0
