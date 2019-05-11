@@ -57,6 +57,8 @@ class ProfileUpdateForm(forms.ModelForm):
     cv = forms.FileField(label=('Curriculum PDF'), required=False, widget=forms.FileInput(attrs={
         'class': 'form-control-file',
     }))
+
+    telefono = forms.TextInput(attrs={'type':'tel', 'class': 'form-control',})
     class Meta:
         model = Author
         fields = ['profile_picture', 'cv', 'telefono','idiomas','portada','imagen1','imagen2','imagen3','imagen4','imagen5','imagen6']
