@@ -115,11 +115,11 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Numero Telefónico</label>
                                     <div class="col-lg-8">
+
+                                      {{ p_form.telefono }}
                                         <script type="text/javascript">
                                             document.getElementById('id_telefono_0').type = 'tel';
                                         </script>
-                                      {{ p_form.telefono }}
-
                                         {% for error in  p_form.telefono.errors %}
                                         <div class="alert alert-danger">
                                             <h1 class="lead">{{ error|escape }}</h1>
