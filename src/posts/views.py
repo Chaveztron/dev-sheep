@@ -218,3 +218,15 @@ def post_delete(request, id):
         return redirect(reverse("post-list"))
     else:
         return post_create(request)
+
+def error_404_view(request, exception):
+    return render(request,'error/error_404.html')
+
+def error_500_view(request):
+    return render(request,'error/error_500.html')
+
+def error_403_view(request, exception):
+    return render(request,'error/error_403.html')
+
+def error_400_view(request, exception):
+    return render(request,'error/error_400.html')
